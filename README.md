@@ -1,2 +1,2 @@
 # Sweet Skills API
-This project is for the API services that the Sweet Skills UI uses
+This project is the API services for the Sweet Skills application
