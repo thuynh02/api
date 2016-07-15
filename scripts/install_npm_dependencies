@@ -1,2 +1,4 @@
 #!/bin/bash
+pushd /sweet-skills-api
 npm install
+popd
