@@ -1,0 +1,22 @@
+{
+  "name": "sweet-skills-api",
+  "version": "1.0.0",
+  "description": "hello world test",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pariveda/sweet-skills-api.git"
+  },
+  "author": "paul",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pariveda/sweet-skills-api/issues"
+  },
+  "homepage": "https://github.com/pariveda/sweet-skills-api#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
