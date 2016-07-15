@@ -1,5 +1,8 @@
 version: 0.0
 os: linux
+files:
+  - source: /
+    destination: /sweet-skills-api
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies
