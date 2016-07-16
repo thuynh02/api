@@ -1,5 +1,4 @@
 #!/bin/bash
-rm -f /sweet-skills-api/.gitignore
 rm -rf /sweet-skills-api
 isExistApp = `pgrep httpd`
 if [[ -n  $isExistApp ]]; then
