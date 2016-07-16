@@ -1,5 +1,5 @@
 #!/bin/bash
-rm -rf /sweet-skills-api
+rm -rf /sweet-skills-api/
 isExistApp = `pgrep httpd`
 if [[ -n  $isExistApp ]]; then
     service httpd stop        
