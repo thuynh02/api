@@ -9,7 +9,7 @@ hooks:
       timeout: 300
       runas: root
   AfterInstall:
-    - location: scripts/install_npm_dependencies
+    - location: scripts/AfterInstall
       timeout: 300
       runas: root
   ApplicationStop:
