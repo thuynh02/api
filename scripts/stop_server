@@ -1,5 +1,6 @@
 #!/bin/bash
-rm -rf /sweet-skills-api/
+rm -f /sweet-skills-api/.gitignore
+rm -rf /sweet-skills-api
 isExistApp = `pgrep httpd`
 if [[ -n  $isExistApp ]]; then
     service httpd stop        
