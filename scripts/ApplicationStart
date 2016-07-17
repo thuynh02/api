@@ -1,1 +1,1 @@
-/sweet-skills-api/node_modules/.bin/forever app.js > /sweet-skills-api/log/application.log 2>&1 &
+forever /sweet-skills-api/app.js > /sweet-skills-api/log/application.log 2>&1 &
