@@ -10,6 +10,10 @@ hooks:
       runas: root
   AfterInstall:
     - location: scripts/AfterInstall
+      timout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/ApplicationStart
       timeout: 300
       runas: root
   ApplicationStop:
