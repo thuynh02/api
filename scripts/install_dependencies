@@ -1,3 +1,3 @@
 #!/bin/bash
-yum install -y nodejs npm --enablerepo=epel
-
+curl --silent --location https://rpm.nodesource.com/setup_4.x | sudo bash -
+yum -y install nodejs
