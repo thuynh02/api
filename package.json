@@ -4,7 +4,8 @@
   "description": "hello world test",
   "main": "app.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
