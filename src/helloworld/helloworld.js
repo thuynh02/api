@@ -1,11 +1,28 @@
-var koa = require('koa');
-var app = koa();
-const port = 80;
+"use strict";
 
-app.use(function *(){
-  this.body = 'Hello World';
-});
+// TODO koa-66 only works with koa 2+ which is in alpha
+// let Router = require('koa-66');
 
-app.listen(port);
+function init (server) {
+  // Create a new route
+  // let router = new Router();
+  server.app.use(function * (next) {
+    if(this.request.path == "/helloworld") {
+      this.body = JSON.stringify( {message: "hello world"} );
+    }
+    yield next;
+  });
+  // Print the routes
+  // console.info("Printing routes...");
+  // router.stacks.forEach(function (stack) {
+  //   console.info("%s: %s", stack.methods, stack.path);
+  // });
+  // Add the route to the app
+  // server.app.use(router.routes());
+  // return {router: router};
+  return this;
+}
 
-console.log('Ready to say hello on port %s', port);
+module.exports = {
+  init: init
+}
