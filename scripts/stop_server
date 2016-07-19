@@ -1,3 +1,4 @@
 #!/bin/bash
 killall -KILL node
+yum remove -y nodejs npm
 rm -rf /sweet-skills-api
