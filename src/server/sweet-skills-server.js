@@ -1,24 +1,31 @@
 "use strict";
 
-let Koa = require('koa');
-let Promise = require('bluebird');
-
+var Koa = require('koa');
+var Promise = require('bluebird');
+var Router = require('koa-router');
 
 function createServer () {
-  let app = new Koa();
+  var app = new Koa();
   
-  app.use(function*(next){
+  app.use(function * (next){
     // Print the request paths
     console.log("Request path: %s", this.request.path);
     yield next;
   });
-  /*
-  let router = new Router();
-  let mainRouter = new Router();*/
-  let httpHandle;
+
+  var router = new Router({
+    prefix: '/'
+  });
+
+  router.get('/', function * () {
+    this.body = "Welcome to the home page";
+    this.status = 200;
+  });
+
+  var httpHandle;
   function start () {
     // Make port configurable
-    let port = process.env.PORT || 80;
+    var port = process.env.PORT || 3000;
     console.log("Starting server on port %s...", port);
     return new Promise(function (resolve) {
       httpHandle = app.listen(port, function () {

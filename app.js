@@ -1,7 +1,7 @@
 'use strict'
 
-let SweetSkillsServer = require('./src/server/sweet-skills-server.js');
-let HelloWorld = require('./src/helloworld/hello-world.controller.js');
+var SweetSkillsServer = require('./src/server/sweet-skills-server.js');
+var HelloWorld = require('./src/helloworld/hello-world.controller.js');
 
 // Create the server instance
 const server =  SweetSkillsServer.createServer();

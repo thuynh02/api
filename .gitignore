@@ -41,3 +41,7 @@ jspm_packages
 
 # Mac finder files
 *.DS_Store
+
+# JetBrains files
+.idea
+.iml
