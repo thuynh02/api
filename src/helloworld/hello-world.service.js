@@ -3,7 +3,7 @@
 let HelloWorldModel = require("./hello-world.model");
 
 function getGreeting() {
-    return new HelloWorldModel("Hello World!").toJSON();
+    return new HelloWorldModel("Hello WorldTest!").toJSON();
 }
 
 module.exports = {
