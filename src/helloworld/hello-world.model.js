@@ -8,4 +8,4 @@ var model = HelloWorldModel.prototype;
 
 model.toJSON = function() {
     return this;
-}
+};

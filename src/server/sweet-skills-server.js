@@ -25,7 +25,7 @@ function createServer () {
   var httpHandle;
   function start () {
     // Make port configurable
-    var port = process.env.PORT || 3000;
+    var port = process.env.PORT || 8080;
     console.log("Starting server on port %s...", port);
     return new Promise(function (resolve) {
       httpHandle = app.listen(port, function () {
@@ -59,4 +59,4 @@ function createServer () {
 
 module.exports = {
   createServer: createServer
-}
+};

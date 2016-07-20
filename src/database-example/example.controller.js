@@ -1,18 +1,27 @@
 "use strict";
 
-var HelloWorldService = require("./hello-world.service.js");
+var ExampleService = require("./example.service.js");
 var Router = require('koa-router');
+var parse = require('co-body');
 
 function init (server) {
   // Create a new router
   var router = new Router({
-    prefix: '/helloworld'
+    prefix: '/example'
   });
 
-  // Define Hello World route
   router.get('/', function * () {
-    this.body = HelloWorldService.getGreeting();
+    this.body = ExampleService.getGreeting();
     this.status = 200;
+  });
+
+  router.post('/', function * () {
+    var data = yield parse(this);
+
+    var response = yield ExampleService.addUser(data);
+
+    this.body = response.body;
+    this.status = response.status;
   });
 
   // Add routes to the app

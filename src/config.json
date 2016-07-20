@@ -1,0 +1,9 @@
+{
+  "development" : {
+    "username" : "sweetskillsUser",
+    "password" : "Pariveda1",
+    "database" : "sweetskillsDB",
+    "host" : "personal-sweetskillsdb-salcotilletta.ciomibwrmoaq.us-east-1.rds.amazonaws.com",
+    "dialect" : "postgres"
+  }
+}
