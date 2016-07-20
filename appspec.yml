@@ -5,19 +5,19 @@ files:
     destination: /sweet-skills-api
 hooks:
   BeforeInstall:
-    - location: scripts/install_dependencies
+    - location: codeDeploy/scripts/BeforeInstall
       timeout: 300
       runas: root
   AfterInstall:
-    - location: scripts/AfterInstall
+    - location: codeDeploy/scripts/AfterInstall
       timout: 300
       runas: root
   ApplicationStart:
-    - location: scripts/ApplicationStart
+    - location: codeDeploy/scripts/ApplicationStart
       timeout: 300
       runas: root
   ApplicationStop:
-    - location: scripts/stop_server
+    - location: codeDeploy/scripts/ApplicationStop
       timeout: 300
       runas: root
 
