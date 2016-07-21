@@ -4,52 +4,59 @@ let Koa = require('koa');
 let Promise = require('bluebird');
 
 
-function createServer () {
-  let app = new Koa();
+function SweetSkillsServer () {
+  this.app = new Koa();
   
-  app.use(function*(next){
-    // Print the request paths
-    console.log("Request path: %s", this.request.path);
-    yield next;
-  });
+  initMiddleware(this);
   /*
   let router = new Router();
   let mainRouter = new Router();*/
-  let httpHandle;
-  function start () {
+  this.httpHandle;
+  
+}
+
+var server = SweetSkillsServer.prototype;
+
+server.start = function () {
     // Make port configurable
     let port = process.env.PORT || 80;
-    console.log("Starting server on port %s...", port);
+    console.log("Starting Sweet Skills Server on port %s...", port);
+    let server = this;
     return new Promise(function (resolve) {
-      httpHandle = app.listen(port, function () {
+      server.httpHandle = server.app.listen(port, function () {
         console.log("Server started.");
         resolve();
       });
     });
   };
 
-  function stop () {
-    console.log("Stopping server...");
-    if (!httpHandle) {
+server.stop = function () {
+    console.log("Stopping Sweet Skills Server...");
+    let server = this;
+    if (!server.httpHandle) {
       console.log("Server has already been stopped.");
       return;
     }
     return new Promise(function (resolve) {
-      httpHandle.close(function () {
+      server.httpHandle.close(function () {
         console.log("Server stopped.");
         resolve();
       });
     });
   };
-  return {
-    app: app,/*
-    router: router,
-    mainRouter: mainRouter,*/
-    start: start,
-    stop: stop
-  }
-}
 
-module.exports = {
-  createServer: createServer
+function initMiddleware(sweetSkillsServer) {
+  // Register a middleware to print request paths
+  sweetSkillsServer.app.use(function*(next){
+    console.log("Request path: %s", this.request.path);
+    yield next;
+  });
+  // Register a middleware to listen for shutdown request
+  sweetSkillsServer.app.use(function* (next) {
+    if (this.request.path == "/server/shutdown") {
+      sweetSkillsServer.stop();
+    }
+    yield next;
+  });
 }
+module.exports = SweetSkillsServer;
