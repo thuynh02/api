@@ -1,7 +1,8 @@
-module.exports = HelloWorldModel;
+'use strict';
 
 function HelloWorldModel(message) {
     this.message = message;
+    return;
 }
 
 var model = HelloWorldModel.prototype;
@@ -9,3 +10,5 @@ var model = HelloWorldModel.prototype;
 model.toJSON = function() {
     return this;
 }
+
+module.exports = HelloWorldModel;

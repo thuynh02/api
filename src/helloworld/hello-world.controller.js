@@ -5,10 +5,11 @@ let HelloWorldService = require("./hello-world.service.js");
 // let Router = require('koa-66');
 
 
-function init (server) {
+function HelloWorldController (server) {
+  this.server = server;
   // Create a new route
   // let router = new Router();
-  server.app.use(function * (next) {
+  this.server.app.use(function * (next) {
     if(this.request.path == "/helloworld") {
       // this.body = JSON.stringify( {message: "hello world"} );
       this.body = HelloWorldService.getGreeting();
@@ -23,9 +24,7 @@ function init (server) {
   // Add the route to the app
   // server.app.use(router.routes());
   // return {router: router};
-  return this;
+  return;
 }
 
-module.exports = {
-  init: init
-}
+module.exports = HelloWorldController;
