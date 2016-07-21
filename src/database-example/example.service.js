@@ -8,23 +8,19 @@ function * getGreeting() {
 
 function * addUser(data) {
   if(data.first_name === undefined) {
-    this.throw(400, "Name is required");
-    return;
+    return { status : 400, body : "Name is required"};
   }
 
   if(data.last_name === undefined) {
-    this.throw(400, "Age is required");
-    return;
+    return { status : 400, body : "Last Name is required"};
   }
 
   if(data.email === undefined) {
-    this.throw(400, "Email is required");
-    return;
+    return { status : 400, body : "Email is required"};
   }
 
   if(data.username === undefined) {
-    this.throw(400, "Username is required");
-    return;
+    return { status : 400, body : "Username is required"};
   }
 
   var response = yield new ExampleModel("Creating User").addUser(data);
