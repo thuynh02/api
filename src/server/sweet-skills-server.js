@@ -7,11 +7,7 @@ let Promise = require('bluebird');
 function SweetSkillsServer () {
   this.app = new Koa();
   
-  // Register a middleware to print request paths
-  this.app.use(function*(next){
-    console.log("Request path: %s", this.request.path);
-    yield next;
-  });
+  initMiddleware(this);
   /*
   let router = new Router();
   let mainRouter = new Router();*/
@@ -36,6 +32,7 @@ server.start = function () {
 
 server.stop = function () {
     console.log("Stopping Sweet Skills Server...");
+    let server = this;
     if (!server.httpHandle) {
       console.log("Server has already been stopped.");
       return;
@@ -48,4 +45,18 @@ server.stop = function () {
     });
   };
 
+function initMiddleware(sweetSkillsServer) {
+  // Register a middleware to print request paths
+  sweetSkillsServer.app.use(function*(next){
+    console.log("Request path: %s", this.request.path);
+    yield next;
+  });
+  // Register a middleware to listen for shutdown request
+  sweetSkillsServer.app.use(function* (next) {
+    if (this.request.path == "/server/shutdown") {
+      sweetSkillsServer.stop();
+    }
+    yield next;
+  });
+}
 module.exports = SweetSkillsServer;
