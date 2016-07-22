@@ -4,15 +4,19 @@ var ExampleService = require("./example.service.js");
 var Router = require('koa-router');
 var parse = require('co-body');
 
-function init (server) {
+function ExampleController (server) {
+  this.server = server;
+
   // Create a new router
   var router = new Router({
     prefix: '/example'
   });
 
   router.get('/', function * () {
-    this.body = ExampleService.getGreeting();
-    this.status = 200;
+    var response = yield ExampleService.getAllUsers();
+
+    this.body = response.body;
+    this.status = response.status;
   });
 
   router.post('/', function * () {
@@ -40,6 +44,4 @@ function init (server) {
   return this;
 }
 
-module.exports = {
-  init: init
-};
+module.exports = ExampleController;

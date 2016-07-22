@@ -2,8 +2,10 @@
 
 var ExampleModel = require("./example.model.js");
 
-function * getGreeting() {
-    return new ExampleModel("Hello WorldTest!").toJSON();
+function * getAllUsers() {
+  var response = yield new ExampleModel("Get All Users").getAllUsers();
+
+  return response;
 }
 
 function * addUser(data) {
@@ -39,7 +41,7 @@ function * deleteUser(data) {
 }
 
 module.exports = {
-  getGreeting,
+  getAllUsers,
   addUser,
   deleteUser
 };

@@ -3,7 +3,8 @@
 var HelloWorldService = require("./hello-world.service.js");
 var Router = require('koa-router');
 
-function init (server) {
+function HelloWorldController (server) {
+  this.server = server;
   // Create a new router
   var router = new Router({
     prefix: '/helloworld'
@@ -19,9 +20,7 @@ function init (server) {
   server.app.use(router.routes());
   server.app.use(router.allowedMethods());
 
-  return this;
+  return;
 }
 
-module.exports = {
-  init: init
-};
+module.exports = HelloWorldController;

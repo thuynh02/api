@@ -6,8 +6,20 @@ function ExampleModel(message) {
 
 var model = ExampleModel.prototype;
 
-model.toJSON = function * () {
-    return this;
+model.getAllUsers = function * () {
+  var status, body;
+
+  try {
+    yield this.User.findAll().then(function(results){
+      status = 200;
+      body = results;
+    });
+  } catch(err) {
+    status = 409;
+    body = err;
+  } finally {
+    return { status : status, body : body};
+  }
 };
 
 model.addUser = function * (data) {

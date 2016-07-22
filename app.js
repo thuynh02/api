@@ -1,14 +1,15 @@
 'use strict'
 
-var SweetSkillsServer = require('./src/server/sweet-skills-server.js');
-var HelloWorld = require('./src/helloworld/hello-world.controller.js');
-var Example = require('./src/database-example/example.controller.js');
+let SweetSkillsServer = require('./src/server/sweet-skills-server.js');
+let HelloWorldController = require('./src/helloworld/hello-world.controller.js');
+let ExampleController = require('./src/database-example/example.controller.js');
 
 // Create the server instance
-const server =  SweetSkillsServer.createServer();
+const server =  new SweetSkillsServer();
 // Init the hello world module
-const hello =  HelloWorld.init(server);
+const hello =  new HelloWorldController(server);
+
 // Init/register additional modules here
-const example =  Example.init(server);
+const example =  new ExampleController(server);
 // Start the server
 server.start();
