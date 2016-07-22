@@ -8,10 +8,7 @@ var Example = require('./src/database-example/example.controller.js');
 const server =  SweetSkillsServer.createServer();
 // Init the hello world module
 const hello =  HelloWorld.init(server);
-// Init the example module
-const example =  Example.init(server);
-
 // Init/register additional modules here
-
+const example =  Example.init(server);
 // Start the server
 server.start();

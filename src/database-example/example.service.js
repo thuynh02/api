@@ -28,7 +28,18 @@ function * addUser(data) {
   return response;
 }
 
+function * deleteUser(data) {
+  if(data.user_id === undefined) {
+    return { status : 400, body : "User Id is required"};
+  }
+
+  var response = yield new ExampleModel("Deleting User").deleteUser(data);
+
+  return response;
+}
+
 module.exports = {
   getGreeting,
-  addUser
+  addUser,
+  deleteUser
 };
