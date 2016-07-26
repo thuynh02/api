@@ -12,6 +12,7 @@ function ExampleController (server) {
     prefix: '/example'
   });
 
+  // Set up routes to call the services
   router.get('/', function * () {
     var response = yield ExampleService.getAllUsers();
 

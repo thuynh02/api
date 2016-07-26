@@ -1,5 +1,7 @@
 var db = require('../server/sweet-skills-database.js');
 
+// Define the table schema
+
 module.exports = db.sequelize.define('users', {
       user_id : {
         type : db.Sequelize.INTEGER,

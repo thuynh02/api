@@ -6,6 +6,8 @@ function ExampleModel(message) {
 
 var model = ExampleModel.prototype;
 
+// Query database and return an http status code and body
+
 model.getAllUsers = function * () {
   var status, body;
 
@@ -42,7 +44,7 @@ model.addUser = function * (data) {
     }).spread(function(user, created) {
       if(created) {
         status = 201;
-        body = "User created!";
+        body = user;
       } else {
         status = 400;
         body = "User already exists!";
@@ -60,7 +62,7 @@ model.updateUser = function * (data) {
   var status, body;
 
   try {
-    yield User.update({
+    yield this.User.update({
       first_name : data.first_name,
       last_name : data.last_name,
       email : data.email,

@@ -2,6 +2,7 @@
 
 var ExampleModel = require("./example.model.js");
 
+// Perform data validation and return response from the model
 function * getAllUsers() {
   var response = yield new ExampleModel("Get All Users").getAllUsers();
 
@@ -32,23 +33,22 @@ function * addUser(data) {
 }
 
 function * updateUser(data) {
-  if(data.user_id === undefined) {
-    return { status : 400, body : "User Id is required"};
-  }
-
   var validRequest = true;
-  var requiredParams = ['first_name', 'last_name', 'email', 'username'];
+  var requiredParams = ['user_id', 'first_name', 'last_name', 'email', 'username'];
+
+  var missingParam = '';
 
   // Validate required parameters
-  for(var d in data) {
-    if(requiredParams.indexOf(d) == -1) {
+  for(var i = 0; i < requiredParams.length; i++) {
+    if(!data.hasOwnProperty(requiredParams[i])) {
+      missingParam = requiredParams[i];
       validRequest = false;
       break;
     }
   }
 
   if(!validRequest) {
-    return { status : 400, body: "Missing parameters" }
+    return { status : 400, body: "Missing parameter: " + missingParam }
   }
 
   var response = yield new ExampleModel("Update User").updateUser(data);
