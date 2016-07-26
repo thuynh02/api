@@ -2,7 +2,7 @@
 
 let SweetSkillsServer = require('./src/server/sweet-skills-server.js');
 let HelloWorldController = require('./src/helloworld/hello-world.controller.js');
-let ExampleController = require('./src/database-example/example.controller.js');
+let ExampleController = require('./src/example/example.controller.js');
 
 // Create the server instance
 const server =  new SweetSkillsServer();

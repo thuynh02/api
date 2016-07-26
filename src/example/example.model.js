@@ -56,6 +56,42 @@ model.addUser = function * (data) {
   }
 };
 
+model.updateUser = function * (data) {
+  var status, body;
+
+  try {
+    yield User.update({
+      first_name : data.first_name,
+      last_name : data.last_name,
+      email : data.email,
+      username : data.username
+    },
+    {
+      where : {
+        user_id : data.user_id
+      }
+    })
+    .then(function(result) {
+      if(result) {
+        status = 204;
+        body = "User updated!";
+      }
+      else {
+        status = 409;
+        body = "Unable to update user";
+      }
+    }, function(error) {
+      status = 500;
+      body = error;
+    });
+  } catch(error) {
+    status = 409;
+    body = error;
+  } finally {
+    return { status : status, body : body};
+  }
+};
+
 model.deleteUser = function * (data) {
   var status, body;
 

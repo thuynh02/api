@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var ExampleModel = require("./example.model.js");
 
@@ -9,6 +9,7 @@ function * getAllUsers() {
 }
 
 function * addUser(data) {
+  // Validate parameters
   if(data.first_name === undefined) {
     return { status : 400, body : "Name is required"};
   }
@@ -25,17 +26,43 @@ function * addUser(data) {
     return { status : 400, body : "Username is required"};
   }
 
-  var response = yield new ExampleModel("Creating User").addUser(data);
+  var response = yield new ExampleModel("Create User").addUser(data);
+
+  return response;
+}
+
+function * updateUser(data) {
+  if(data.user_id === undefined) {
+    return { status : 400, body : "User Id is required"};
+  }
+
+  var validRequest = true;
+  var requiredParams = ['first_name', 'last_name', 'email', 'username'];
+
+  // Validate required parameters
+  for(var d in data) {
+    if(requiredParams.indexOf(d) == -1) {
+      validRequest = false;
+      break;
+    }
+  }
+
+  if(!validRequest) {
+    return { status : 400, body: "Missing parameters" }
+  }
+
+  var response = yield new ExampleModel("Update User").updateUser(data);
 
   return response;
 }
 
 function * deleteUser(data) {
+  // Validate parameters
   if(data.user_id === undefined) {
     return { status : 400, body : "User Id is required"};
   }
 
-  var response = yield new ExampleModel("Deleting User").deleteUser(data);
+  var response = yield new ExampleModel("Delete User").deleteUser(data);
 
   return response;
 }
@@ -43,5 +70,6 @@ function * deleteUser(data) {
 module.exports = {
   getAllUsers,
   addUser,
+  updateUser,
   deleteUser
 };

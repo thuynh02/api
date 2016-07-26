@@ -37,6 +37,16 @@ function ExampleController (server) {
     this.status = response.status;
   });
 
+  router.put('/:user_id', function * () {
+    var data = yield parse(this);
+    data.user_id = this.params.user_id;
+
+    var response = yield ExampleService.updateUser(data);
+
+    this.body = response.body;
+    this.status = response.status;
+  });
+
   // Add routes to the app
   server.app.use(router.routes());
   server.app.use(router.allowedMethods());
