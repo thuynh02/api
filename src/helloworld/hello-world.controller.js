@@ -1,29 +1,25 @@
 "use strict";
 
-let HelloWorldService = require("./hello-world.service.js");
-// TODO koa-66 only works with koa 2+ which is in alpha
-// let Router = require('koa-66');
-
+var HelloWorldService = require("./hello-world.service.js");
+var Router = require('koa-router');
 
 function HelloWorldController (server) {
   this.server = server;
-  // Create a new route
-  // let router = new Router();
-  this.server.app.use(function * (next) {
-    if(this.request.path == "/helloworld") {
-      // this.body = JSON.stringify( {message: "hello world"} );
-      this.body = HelloWorldService.getGreeting();
-    }
-    yield next;
+  // Create a new router
+  var router = new Router({
+    prefix: '/helloworld'
   });
-  // Print the routes
-  // console.info("Printing routes...");
-  // router.stacks.forEach(function (stack) {
-  //   console.info("%s: %s", stack.methods, stack.path);
-  // });
-  // Add the route to the app
-  // server.app.use(router.routes());
-  // return {router: router};
+
+  // Define Hello World route
+  router.get('/', function * () {
+    this.body = HelloWorldService.getGreeting();
+    this.status = 200;
+  });
+
+  // Add routes to the app
+  server.app.use(router.routes());
+  server.app.use(router.allowedMethods());
+
   return;
 }
 

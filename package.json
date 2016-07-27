@@ -19,7 +19,11 @@
   "homepage": "https://github.com/pariveda/sweet-skills-api#readme",
   "dependencies": {
     "bluebird": "^3.4.1",
-    "koa": "^1.2.0"
+    "koa": "^1.2.0",
+    "koa-router": "^5.4.0",
+    "co-body": "^4.2.0",
+    "sequelize": "^3.23.4",
+    "pg" : "^6.0.2"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5",

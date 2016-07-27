@@ -1,8 +1,8 @@
 "use strict";
 
-let Koa = require('koa');
-let Promise = require('bluebird');
-
+var Koa = require('koa');
+var Promise = require('bluebird');
+var Router = require('koa-router');
 
 function SweetSkillsServer () {
   this.app = new Koa();
@@ -12,14 +12,14 @@ function SweetSkillsServer () {
   let router = new Router();
   let mainRouter = new Router();*/
   this.httpHandle;
-  
+
 }
 
 var server = SweetSkillsServer.prototype;
 
 server.start = function () {
     // Make port configurable
-    let port = process.env.PORT || 80;
+    let port = process.env.PORT || 8080;
     console.log("Starting Sweet Skills Server on port %s...", port);
     let server = this;
     return new Promise(function (resolve) {
