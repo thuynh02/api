@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "./node_modules/.bin/jasmine-node spec",
-    "start": "node app.js"
+    "start": "node app.js",
+    "lint": "jshint **.js"
   },
   "repository": {
     "type": "git",
@@ -23,10 +24,11 @@
     "koa-router": "^5.4.0",
     "co-body": "^4.2.0",
     "sequelize": "^3.23.4",
-    "pg" : "^6.0.2"
+    "pg": "^6.0.2"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5",
+    "jshint": "^2.9.2",
     "request": "^2.73.0"
   }
 }
