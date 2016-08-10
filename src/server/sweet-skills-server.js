@@ -3,10 +3,11 @@
 var Koa = require('koa');
 var Promise = require('bluebird');
 var Router = require('koa-router');
+var cors = require('kcors');
 
 function SweetSkillsServer () {
   this.app = new Koa();
-  
+  this.app.use(cors());
   initMiddleware(this);
   /*
   let router = new Router();
