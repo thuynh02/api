@@ -4,10 +4,13 @@ var Koa = require('koa');
 var Promise = require('bluebird');
 var Router = require('koa-router');
 var cors = require('kcors');
+var logger = require('koa-bunyan-logger');
 
 function SweetSkillsServer () {
   this.app = new Koa();
   this.app.use(cors());
+  this.app.use(logger());
+  this.app.use(logger.requestLogger());
   initMiddleware(this);
   /*
   let router = new Router();
@@ -48,10 +51,12 @@ server.stop = function () {
 
 function initMiddleware(sweetSkillsServer) {
   // Register a middleware to print request paths
+  /*
   sweetSkillsServer.app.use(function*(next){
     console.log("Request path: %s", this.request.path);
     yield next;
   });
+  */
   // Register a middleware to listen for shutdown request
   sweetSkillsServer.app.use(function* (next) {
     if (this.request.path == "/server/shutdown") {

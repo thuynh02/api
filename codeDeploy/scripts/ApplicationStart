@@ -1,1 +1,1 @@
-PORT=80 node /sweet-skills-api/app.js > /dev/null 2> /dev/null < /dev/null &
+PORT=80 node /sweet-skills-api/app.js > /sweetskills/log.txt 2> /sweetskills/err-log.txt < /dev/null &
