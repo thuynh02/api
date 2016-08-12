@@ -52,7 +52,7 @@ function ExampleController (server) {
   server.app.use(router.routes());
   server.app.use(router.allowedMethods());
 
-  return this;
+  return;
 }
 
 module.exports = ExampleController;

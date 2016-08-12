@@ -52,7 +52,7 @@ model.addUser = function * (data) {
     });
   } catch(err) {
     status = 409;
-    error = err;
+    var error = err;
   } finally {
     return { status : status, body : body};
   }
@@ -113,7 +113,7 @@ model.deleteUser = function * (data) {
     });
   } catch(err) {
     status = 409;
-    error = err;
+    var error = err;
   } finally {
     return { status : status, body : body};
   }

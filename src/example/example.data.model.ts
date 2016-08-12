@@ -1,8 +1,9 @@
+/* NOTE: Not sure if export for this file is correct */
 var db = require('../server/sweet-skills-database.js');
 
 // Define the table schema
 
-module.exports = db.sequelize.define('users', {
+var dataModel = db.sequelize.define('users', {
       user_id : {
         type : db.Sequelize.INTEGER,
         primaryKey : true,
@@ -25,3 +26,5 @@ module.exports = db.sequelize.define('users', {
       underscored : true
     }
   );
+
+module.exports = dataModel;

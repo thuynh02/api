@@ -1,10 +1,9 @@
 'use strict';
-
-var ExampleModel = require("./example.model.js");
+var EModel = require("./example.model.js");
 
 // Perform data validation and return response from the model
 function * getAllUsers() {
-  var response = yield new ExampleModel("Get All Users").getAllUsers();
+  var response = yield new EModel("Get All Users").getAllUsers();
 
   return response;
 }
@@ -27,7 +26,7 @@ function * addUser(data) {
     return { status : 400, body : "Username is required"};
   }
 
-  var response = yield new ExampleModel("Create User").addUser(data);
+  var response = yield new EModel("Create User").addUser(data);
 
   return response;
 }
@@ -51,7 +50,7 @@ function * updateUser(data) {
     return { status : 400, body: "Missing parameter: " + missingParam }
   }
 
-  var response = yield new ExampleModel("Update User").updateUser(data);
+  var response = yield new EModel("Update User").updateUser(data);
 
   return response;
 }
@@ -62,7 +61,7 @@ function * deleteUser(data) {
     return { status : 400, body : "User Id is required"};
   }
 
-  var response = yield new ExampleModel("Delete User").deleteUser(data);
+  var response = yield new EModel("Delete User").deleteUser(data);
 
   return response;
 }

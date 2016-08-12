@@ -1,7 +1,6 @@
 "use strict";
-
 var Koa = require('koa');
-var Promise = require('bluebird');
+var BBPromise = require('bluebird');
 var Router = require('koa-router');
 
 function SweetSkillsServer () {
@@ -15,14 +14,12 @@ function SweetSkillsServer () {
 
 }
 
-var server = SweetSkillsServer.prototype;
-
-server.start = function () {
+SweetSkillsServer.prototype.start = function () {
     // Make port configurable
     let port = process.env.PORT || 8080;
     console.log("Starting Sweet Skills Server on port %s...", port);
     let server = this;
-    return new Promise(function (resolve) {
+    return new BBPromise(function (resolve) {
       server.httpHandle = server.app.listen(port, function () {
         console.log("Server started.");
         resolve();
@@ -30,14 +27,14 @@ server.start = function () {
     });
   };
 
-server.stop = function () {
+SweetSkillsServer.prototype.stop = function () {
     console.log("Stopping Sweet Skills Server...");
     let server = this;
     if (!server.httpHandle) {
       console.log("Server has already been stopped.");
       return;
     }
-    return new Promise(function (resolve) {
+    return new BBPromise(function (resolve) {
       server.httpHandle.close(function () {
         console.log("Server stopped.");
         resolve();
@@ -59,4 +56,5 @@ function initMiddleware(sweetSkillsServer) {
     yield next;
   });
 }
+
 module.exports = SweetSkillsServer;
