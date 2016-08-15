@@ -6,4 +6,5 @@ declare var System: any;
 declare var module: any;
 declare var require: any;
 declare var process: any;
+declare var Buffer: any;
 

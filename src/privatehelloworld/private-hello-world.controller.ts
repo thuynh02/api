@@ -1,6 +1,6 @@
 "use strict";
 
-var PrivateHelloWorldService = require("./private-hello-world.service.js");
+var PHWService = require("./private-hello-world.service.js");
 var jwt = require('koa-jwt');
 var Router = require('koa-router');
 var dotenv = require('dotenv');
@@ -23,7 +23,8 @@ function PrivateHelloWorldController (server) {
 
   // Define Hello World route
   router.get('/', function * () {
-    this.body = PrivateHelloWorldService.getGreeting();
+    var service = new PHWService();
+    this.body = service.getGreeting();
     this.status = 200;
   });
 
