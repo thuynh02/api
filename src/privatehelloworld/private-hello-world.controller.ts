@@ -3,9 +3,10 @@
 var PHWService = require("./private-hello-world.service.js");
 var jwt = require('koa-jwt');
 var Router = require('koa-router');
+/*
 var dotenv = require('dotenv');
 dotenv.load();
-
+*/
 function PrivateHelloWorldController (server) {
   this.server = server;
   // Create a new router
