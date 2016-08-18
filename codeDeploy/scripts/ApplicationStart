@@ -1,1 +1,1 @@
-sudo npm run start > /sweetskills/log.txt 2> /sweetskills/err-log.txt < /dev/null &
+sudo npm run start > /dev/null 2> /dev/null < /dev/null &
