@@ -1,1 +1,4 @@
+#!/bin/bash
+pushd /sweet-skills-api
 sudo npm run start > /dev/null 2> /dev/null < /dev/null &
+popd
