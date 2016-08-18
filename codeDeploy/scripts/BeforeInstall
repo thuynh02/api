@@ -1,3 +1,4 @@
 #!/bin/bash
 curl --silent --location https://rpm.nodesource.com/setup_4.x | sudo bash -
 yum -y install nodejs
+npm install --global typings
