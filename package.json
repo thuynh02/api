@@ -6,6 +6,7 @@
   "scripts": {
     "test": "./node_modules/.bin/jasmine-node spec",
     "start": "tsc && node dist/app.js",
+    "dbTest" : "tsc && PGPORT=5432 PGHOST=personal-sweetskillsdb-paul.ciomibwrmoaq.us-east-1.rds.amazonaws.com PGDATABASE=sweetskillsdb PGUSER=sweetskillsUser PGPASSWORD=Pariveda1 node dist/app.js",
     "lint": "jshint **.js",
     "build": "tsc --watch",
     "postinstall": "typings install"

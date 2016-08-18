@@ -1,9 +1,9 @@
 'use strict';
-var EModel = require("./example.model.js");
+var SModel = require("./seq.model.js");
 
 // Perform data validation and return response from the model
-function * getAllUsers() {
-  var response = yield new EModel("Get All Users").getAllUsers();
+function * getAllCapability() {
+  var response = yield new SModel("Get All Capabilities").getAllCapability();
 
   return response;
 }
@@ -26,7 +26,7 @@ function * addUser(data) {
     return { status : 400, body : "Username is required"};
   }
 
-  var response = yield new EModel("Create User").addUser(data);
+  var response = yield new SModel("Create User").addUser(data);
 
   return response;
 }
@@ -50,7 +50,7 @@ function * updateUser(data) {
     return { status : 400, body: "Missing parameter: " + missingParam }
   }
 
-  var response = yield new EModel("Update User").updateUser(data);
+  var response = yield new SModel("Update User").updateUser(data);
 
   return response;
 }
@@ -61,14 +61,14 @@ function * deleteUser(data) {
     return { status : 400, body : "User Id is required"};
   }
 
-  var response = yield new EModel("Delete User").deleteUser(data);
+  var response = yield new SModel("Delete User").deleteUser(data);
 
   return response;
 }
 
 module.exports = {
-  getAllUsers,
+  getAllCapability/*,
   addUser,
   updateUser,
-  deleteUser
+  deleteUser*/
 };

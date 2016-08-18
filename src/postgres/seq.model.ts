@@ -1,18 +1,22 @@
-function ExampleModel(message) {
+var db = require('../server/sweet-skills-database.js');
+var capability = require('./../models/capability.js');
+
+
+function SeqModel(message) {
   this.message = message;
-  this.User = require('./example.data.model.js');
-  this.User.sync();
+  this.Capability = capability(db.sequelize, db.Sequelize);
+  //this.Capability.sync();
 }
 
-var model = ExampleModel.prototype;
+var model = SeqModel.prototype;
 
 // Query database and return an http status code and body
 
-model.getAllUsers = function * () {
+model.getAllCapability = function * () {
   var status, body;
 
   try {
-    yield this.User.findAll().then(function(results){
+    yield this.Capability.findAll().then(function(results){
       status = 200;
       body = results;
     });
@@ -119,4 +123,4 @@ model.deleteUser = function * (data) {
   }
 };
 
-module.exports = ExampleModel;
+module.exports = SeqModel;

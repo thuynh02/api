@@ -1,9 +1,0 @@
-{
-  "development" : {
-    "username" : "sweetskillsUser",
-    "password" : "Pariveda1",
-    "database" : "sweetskills",
-    "host" : "devtest.ciomibwrmoaq.us-east-1.rds.amazonaws.com",
-    "dialect" : "postgres"
-  }
-}
