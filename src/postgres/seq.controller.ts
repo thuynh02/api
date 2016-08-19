@@ -21,7 +21,7 @@ function SeqController (server) {
   });
 
   router.post('/capability', function * () {
-    var data = yield parse(this);
+    var data = yield parse.json(this);
 
     var response = yield SeqService.addCapability(data);
 
