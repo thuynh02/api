@@ -9,21 +9,21 @@ function SeqController (server) {
 
   // Create a new router
   var router = new Router({
-    prefix: '/seq/capability'
+    prefix: '/seq'
   });
 
   // Set up routes to call the services
-  router.get('/', function * () {
+  router.get('/capability', function * () {
     var response = yield SeqService.getAllCapability();
 
     this.body = response.body;
     this.status = response.status;
   });
 
-  router.post('/', function * () {
+  router.post('/capability', function * () {
     var data = yield parse(this);
 
-    var response = yield SeqService.addUser(data);
+    var response = yield SeqService.addCapability(data);
 
     this.body = response.body;
     this.status = response.status;

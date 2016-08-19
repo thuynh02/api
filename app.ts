@@ -3,10 +3,7 @@ var HWController = require("./src/helloworld/hello-world.controller.js");
 var PHWController = require('./src/privatehelloworld/private-hello-world.controller.js');
 var SController = require('./src/postgres/seq.controller.js');
 
-/*
-var EController = require("./src/example/example.controller.js");
-let PController = require('./src/postgres/postgres.controller.js');
-*/
+//var EController = require("./src/example/example.controller.js");
 
 'use strict';
 

@@ -28,30 +28,28 @@ model.getAllCapability = function * () {
   }
 };
 
-model.addUser = function * (data) {
+model.addCapability = function * (data) {
   var status, body;
 
   try {
-    yield this.User.findOrCreate({
+    yield this.Capability.findOrCreate({
       where : {
-        $or : {
-          email : data.email,
-          username : data.username
-        }
+        cap_name : data.cap_name
       },
       defaults : {
-        first_name : data.first_name,
-        last_name : data.last_name,
-        email : data.email,
-        username : data.username
+        party_id : data.party_id,
+        cap_name : data.cap_name,
+        category : data.category,
+        skill : data.skill,
+        type : data.type
       }
-    }).spread(function(user, created) {
+    }).spread(function(cap, created) {
       if(created) {
         status = 201;
-        body = user;
+        body = cap;
       } else {
         status = 400;
-        body = "User already exists!";
+        body = "Capability already exists!";
       }
     });
   } catch(err) {

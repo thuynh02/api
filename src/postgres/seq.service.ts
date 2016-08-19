@@ -3,30 +3,35 @@ var SModel = require("./seq.model.js");
 
 // Perform data validation and return response from the model
 function * getAllCapability() {
-  var response = yield new SModel("Get All Capabilities").getAllCapability();
+  var response = yield new SModel("Get All Capability").getAllCapability();
 
   return response;
 }
 
-function * addUser(data) {
+function * addCapability(data) {
   // Validate parameters
-  if(data.first_name === undefined) {
+  
+  if(data.party_id === undefined) {
     return { status : 400, body : "Name is required"};
   }
 
-  if(data.last_name === undefined) {
+  if(data.cap_name === undefined) {
     return { status : 400, body : "Last Name is required"};
   }
 
-  if(data.email === undefined) {
+  if(data.category === undefined) {
     return { status : 400, body : "Email is required"};
   }
 
-  if(data.username === undefined) {
+  if(data.skill === undefined) {
+    return { status : 400, body : "Username is required"};
+  }
+  
+  if(data.type === undefined) {
     return { status : 400, body : "Username is required"};
   }
 
-  var response = yield new SModel("Create User").addUser(data);
+  var response = yield new SModel("Create Capability").addCapability(data);
 
   return response;
 }
@@ -67,7 +72,9 @@ function * deleteUser(data) {
 }
 
 module.exports = {
-  getAllCapability/*,
+  getAllCapability,
+  addCapability
+  /*,
   addUser,
   updateUser,
   deleteUser*/
