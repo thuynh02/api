@@ -20,7 +20,7 @@ function SweetSkillsServer () {
 
 SweetSkillsServer.prototype.start = function () {
     // Make port configurable
-    let port = process.env.PORT || 8080;
+    let port = process.env.PORT || 80;
     console.log("Starting Sweet Skills Server on port %s...", port);
     let server = this;
     return new BBPromise(function (resolve) {
