@@ -5,6 +5,7 @@ var capability = require('./../models/capability.js');
 function SeqModel(message) {
   this.message = message;
   this.Capability = capability(db.sequelize, db.Sequelize);
+  this.logger = require('../server/logger.js');
   //this.Capability.sync();
 }
 
@@ -14,15 +15,17 @@ var model = SeqModel.prototype;
 
 model.getAllCapability = function * () {
   var status, body;
-
+  var model = this;
   try {
     yield this.Capability.findAll().then(function(results){
       status = 200;
       body = results;
+      model.logger.info("Capability retrieved");
     });
   } catch(err) {
     status = 409;
     body = err;
+    this.logger.error(body);
   } finally {
     return { status : status, body : body};
   }
@@ -30,7 +33,7 @@ model.getAllCapability = function * () {
 
 model.addCapability = function * (data) {
   var status, body;
-
+  var model = this;
   try {
     yield this.Capability.findOrCreate({
       where : {
@@ -50,11 +53,13 @@ model.addCapability = function * (data) {
       } else {
         status = 400;
         body = "Capability already exists!";
+        model.logger.warn(body);
       }
     });
   } catch(err) {
     status = 409;
     var error = err;
+    this.logger.error(body);
   } finally {
     return { status : status, body : body};
   }
@@ -62,7 +67,7 @@ model.addCapability = function * (data) {
 
 model.updateUser = function * (data) {
   var status, body;
-
+  var model = this;
   try {
     yield this.User.update({
       first_name : data.first_name,
@@ -79,18 +84,22 @@ model.updateUser = function * (data) {
       if(result) {
         status = 204;
         body = "User updated!";
+        model.logger.info(body);
       }
       else {
         status = 409;
         body = "Unable to update user";
+        model.logger.warn(body);
       }
     }, function(error) {
       status = 500;
       body = error;
+      model.logger.error(body);
     });
   } catch(error) {
     status = 409;
     body = error;
+    this.logger.error(body);
   } finally {
     return { status : status, body : body};
   }
@@ -98,7 +107,7 @@ model.updateUser = function * (data) {
 
 model.deleteUser = function * (data) {
   var status, body;
-
+  var model = this;
   try {
     yield this.User.destroy({
       where: {
@@ -108,14 +117,17 @@ model.deleteUser = function * (data) {
       if(deletedRows) {
         status = 204;
         body = "User: " + data.user_id + " was deleted";
+        model.logger.info(body);
       } else {
         status = 409;
         body = "User: " + data.user_id + " was not deleted";
+        model.logger.warn(body);
       }
     });
   } catch(err) {
     status = 409;
     var error = err;
+    this.logger.error(body);
   } finally {
     return { status : status, body : body};
   }
