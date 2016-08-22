@@ -12,23 +12,23 @@ function * addCapability(data) {
   // Validate parameters
   
   if(data.party_id === undefined) {
-    return { status : 400, body : "Name is required"};
+    return { status : 400, body : "party_id is required"};
   }
 
   if(data.cap_name === undefined) {
-    return { status : 400, body : "Last Name is required"};
+    return { status : 400, body : "cap_name is required"};
   }
 
   if(data.category === undefined) {
-    return { status : 400, body : "Email is required"};
+    return { status : 400, body : "category is required"};
   }
 
   if(data.skill === undefined) {
-    return { status : 400, body : "Username is required"};
+    return { status : 400, body : "skill is required"};
   }
   
   if(data.type === undefined) {
-    return { status : 400, body : "Username is required"};
+    return { status : 400, body : "type is required"};
   }
 
   var response = yield new SModel("Create Capability").addCapability(data);
