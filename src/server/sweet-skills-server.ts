@@ -1,12 +1,14 @@
 "use strict";
-
 var Koa = require('koa');
-var Promise = require('bluebird');
+var BBPromise = require('bluebird');
 var Router = require('koa-router');
+var cors = require('kcors');
+var logger = require('./logger.js');
 
 function SweetSkillsServer () {
   this.app = new Koa();
-  
+  this.logger = logger;
+  this.app.use(cors());
   initMiddleware(this);
   /*
   let router = new Router();
@@ -15,14 +17,12 @@ function SweetSkillsServer () {
 
 }
 
-var server = SweetSkillsServer.prototype;
-
-server.start = function () {
+SweetSkillsServer.prototype.start = function () {
     // Make port configurable
-    let port = process.env.PORT || 8080;
+    let port = process.env.PORT || 80;
     console.log("Starting Sweet Skills Server on port %s...", port);
     let server = this;
-    return new Promise(function (resolve) {
+    return new BBPromise(function (resolve) {
       server.httpHandle = server.app.listen(port, function () {
         console.log("Server started.");
         resolve();
@@ -30,14 +30,14 @@ server.start = function () {
     });
   };
 
-server.stop = function () {
+SweetSkillsServer.prototype.stop = function () {
     console.log("Stopping Sweet Skills Server...");
     let server = this;
     if (!server.httpHandle) {
       console.log("Server has already been stopped.");
       return;
     }
-    return new Promise(function (resolve) {
+    return new BBPromise(function (resolve) {
       server.httpHandle.close(function () {
         console.log("Server stopped.");
         resolve();
@@ -46,11 +46,22 @@ server.stop = function () {
   };
 
 function initMiddleware(sweetSkillsServer) {
-  // Register a middleware to print request paths
+  // Register a middleware to print request paths and handle errors
+  
   sweetSkillsServer.app.use(function*(next){
     console.log("Request path: %s", this.request.path);
     yield next;
+    try {
+      console.log("Request path: %s", this.request.path);
+      yield next;
+    } catch(err) {
+      sweetSkillsServer.status = err.status || 500;
+      sweetSkillsServer.body = err.message;
+      sweetSkillsServer.app.emit('error', err, SweetSkillsServer);
+      sweetSkillsServer.logger.error(err);
+    }
   });
+  
   // Register a middleware to listen for shutdown request
   sweetSkillsServer.app.use(function* (next) {
     if (this.request.path == "/server/shutdown") {
@@ -59,4 +70,5 @@ function initMiddleware(sweetSkillsServer) {
     yield next;
   });
 }
+
 module.exports = SweetSkillsServer;

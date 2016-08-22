@@ -1,58 +1,65 @@
-function ExampleModel(message) {
+var db = require('../server/sweet-skills-database.js');
+var capability = require('./../models/capability.js');
+
+
+function SeqModel(message) {
   this.message = message;
-  this.User = require('./example.data.model.js');
-  this.User.sync();
+  this.Capability = capability(db.sequelize, db.Sequelize);
+  this.logger = require('../server/logger.js');
+  //this.Capability.sync();
 }
 
-var model = ExampleModel.prototype;
+var model = SeqModel.prototype;
 
 // Query database and return an http status code and body
 
-model.getAllUsers = function * () {
+model.getAllCapability = function * () {
   var status, body;
-
+  var model = this;
   try {
-    yield this.User.findAll().then(function(results){
+    yield this.Capability.findAll().then(function(results){
       status = 200;
       body = results;
+      model.logger.info("Capability retrieved");
     });
   } catch(err) {
     status = 409;
     body = err;
+    this.logger.error(body);
   } finally {
     return { status : status, body : body};
   }
 };
 
-model.addUser = function * (data) {
+model.addCapability = function * (data) {
   var status, body;
-
+  var model = this;
   try {
-    yield this.User.findOrCreate({
+    yield this.Capability.findOrCreate({
       where : {
-        $or : {
-          email : data.email,
-          username : data.username
-        }
+        cap_name : data.cap_name
       },
       defaults : {
-        first_name : data.first_name,
-        last_name : data.last_name,
-        email : data.email,
-        username : data.username
+        party_id : data.party_id,
+        cap_name : data.cap_name,
+        category : data.category,
+        skill : data.skill,
+        type : data.type
       }
-    }).spread(function(user, created) {
+    }).spread(function(cap, created) {
       if(created) {
         status = 201;
-        body = user;
+        body = cap;
       } else {
         status = 400;
-        body = "User already exists!";
+        body = "Capability already exists!";
+        model.logger.warn(body);
       }
     });
   } catch(err) {
     status = 409;
-    error = err;
+    var error = err;
+    this.logger.error(body);
   } finally {
     return { status : status, body : body};
   }
@@ -60,7 +67,7 @@ model.addUser = function * (data) {
 
 model.updateUser = function * (data) {
   var status, body;
-
+  var model = this;
   try {
     yield this.User.update({
       first_name : data.first_name,
@@ -77,18 +84,22 @@ model.updateUser = function * (data) {
       if(result) {
         status = 204;
         body = "User updated!";
+        model.logger.info(body);
       }
       else {
         status = 409;
         body = "Unable to update user";
+        model.logger.warn(body);
       }
     }, function(error) {
       status = 500;
       body = error;
+      model.logger.error(body);
     });
   } catch(error) {
     status = 409;
     body = error;
+    this.logger.error(body);
   } finally {
     return { status : status, body : body};
   }
@@ -96,7 +107,7 @@ model.updateUser = function * (data) {
 
 model.deleteUser = function * (data) {
   var status, body;
-
+  var model = this;
   try {
     yield this.User.destroy({
       where: {
@@ -106,17 +117,20 @@ model.deleteUser = function * (data) {
       if(deletedRows) {
         status = 204;
         body = "User: " + data.user_id + " was deleted";
+        model.logger.info(body);
       } else {
         status = 409;
         body = "User: " + data.user_id + " was not deleted";
+        model.logger.warn(body);
       }
     });
   } catch(err) {
     status = 409;
-    error = err;
+    var error = err;
+    this.logger.error(body);
   } finally {
     return { status : status, body : body};
   }
 };
 
-module.exports = ExampleModel;
+module.exports = SeqModel;
