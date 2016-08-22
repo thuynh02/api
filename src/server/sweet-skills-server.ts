@@ -8,8 +8,8 @@ var logger = require('./logger.js');
 
 function SweetSkillsServer () {
   this.app = new Koa();
-  this.app.use(cors());
   this.logger = logger;
+  this.app.use(cors());
   initMiddleware(this);
   /*
   let router = new Router();
