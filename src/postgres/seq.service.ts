@@ -74,8 +74,4 @@ function * deleteUser(data) {
 module.exports = {
   getAllCapability,
   addCapability
-  /*,
-  addUser,
-  updateUser,
-  deleteUser*/
 };

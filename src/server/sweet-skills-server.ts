@@ -4,7 +4,6 @@ var BBPromise = require('bluebird');
 var Router = require('koa-router');
 var cors = require('kcors');
 var logger = require('./logger.js');
-//var logger = require('koa-bunyan-logger');
 
 function SweetSkillsServer () {
   this.app = new Koa();

@@ -3,8 +3,6 @@ var HWController = require("./src/helloworld/hello-world.controller.js");
 var PHWController = require('./src/privatehelloworld/private-hello-world.controller.js');
 var SController = require('./src/postgres/seq.controller.js');
 
-//var EController = require("./src/example/example.controller.js");
-
 'use strict';
 
 
@@ -17,9 +15,6 @@ const seq = new SController(server);
 // Init the hello world modules
 const hello =  new HWController(server);
 const hellop =  new PHWController(server);
-
-// Init/register additional modules here
-//const example =  new EController(server);
 
 // Start the server
 server.start();
