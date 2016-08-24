@@ -12,6 +12,14 @@ function SkillsController (server) {
     prefix: '/skills'
   });
 
+  // Set up routes to call the services
+  router.get('/', function * () {
+    var response = yield SkillsService.getAllCapabilities();
+
+    this.body = response.body;
+    this.status = response.status;
+  });
+
   // Add routes to the app
   server.app.use(router.routes());
   server.app.use(router.allowedMethods());
