@@ -17,7 +17,35 @@ model.getAllCapabilities = function * () {
     yield this.Capability.findAll().then(function (results) {
       status = 200;
       body = results;
-      model.logger.info("Capabilities retrieved");
+    });
+  }
+  catch (err) {
+    status = 409;
+    body = err;
+    model.logger.error(body);
+  }
+  finally {
+    return { status: status, body: body };
+  }
+};
+
+model.getCapability = function * (data) {
+  var status, body;
+  var model = this;
+  try {
+    yield this.Capability.findOne({
+      where : {
+        capability_id: data.capability_id
+      }
+    }).then(function (results) {
+      if(results) {
+        status = 200;
+        body = results;
+      } else {
+        status = 404;
+        body = "Capability not found";
+        model.logger.warn(body);
+      }
     });
   }
   catch (err) {
