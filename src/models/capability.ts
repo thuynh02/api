@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     skill: {
-      type: 'ARRAY',
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true
     },
     type: {

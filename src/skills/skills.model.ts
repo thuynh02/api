@@ -3,7 +3,7 @@ var capability = require('../models/capability.js');
 
 function SkillsModel() {
   this.Capability = capability(db.sequelize, db.Sequelize);
-  // this.Capability.sync();
+  this.Capability.sync();
 
   this.logger = require('../server/logger.js');
 }
