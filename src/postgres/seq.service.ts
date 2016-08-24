@@ -1,4 +1,3 @@
-'use strict';
 var SModel = require("./seq.model.js");
 
 // Perform data validation and return response from the model

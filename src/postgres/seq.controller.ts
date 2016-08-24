@@ -1,5 +1,3 @@
-"use strict";
-
 var SeqService = require("./seq.service.js");
 var Router = require('koa-router');
 var parse = require('co-body');
