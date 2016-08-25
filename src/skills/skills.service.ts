@@ -43,8 +43,33 @@ function * addCapability(data) {
     return response;
 }
 
+function * updateCapability(data) {
+    var validRequest = true;
+    var requiredParams = ['capability_id', 'party_id', 'cap_name', 'category', 'skill', 'type'];
+
+    var missingParam = '';
+
+    // Validate required parameters
+    for(let i = 0; i < requiredParams.length; i++) {
+        if(!data.hasOwnProperty(requiredParams[i])) {
+            missingParam = requiredParams[i];
+            validRequest = false;
+            break;
+        }
+    }
+
+    if(!validRequest) {
+        return { status : 400, body: "Missing parameter: " + missingParam }
+    }
+
+    var response = yield new SModel().updateCapability(data);
+
+    return response;
+}
+
 module.exports = {
     getAllCapabilities,
     getCapability,
-    addCapability
+    addCapability,
+    updateCapability
 };

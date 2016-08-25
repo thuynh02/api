@@ -38,6 +38,16 @@ function SkillsController (server) {
     this.status = response.status;
   });
 
+  router.put('/:capability_id', function * () {
+    var data = yield parse(this);
+    data.capability_id = this.params.capability_id;
+
+    var response = yield SkillsService.updateCapability(data);
+
+    this.body = response.body;
+    this.status = response.status;
+  });
+
   // Add routes to the app
   server.app.use(router.routes());
   server.app.use(router.allowedMethods());

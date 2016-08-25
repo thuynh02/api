@@ -91,4 +91,44 @@ model.addCapability = function * (data) {
   }
 };
 
+model.updateCapability = function * (data) {
+  var status, body;
+  var model = this;
+
+  try {
+    yield this.Capability.update({
+      party_id : data.party_id,
+      cap_name : data.cap_name,
+      category : data.category,
+      skill : data.skill,
+      type : data.type
+    },
+    {
+      where : {
+        capability_id : data.capability_id
+      }
+    }).then(function(result) {
+      if(result) {
+        status = 204;
+        body = "Capability updated!";
+      }
+      else {
+        status = 409;
+        body = "Unable to update capability";
+        model.logger.warn(body);
+      }
+    }, function(error) {
+      status = 500;
+      body = error;
+      model.logger.error(body);
+    });
+  } catch(error) {
+      status = 409;
+      body = error;
+      this.logger.error(body);
+  } finally {
+      return { status : status, body : body };
+  }
+};
+
 module.exports = SkillsModel;
