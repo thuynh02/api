@@ -29,6 +29,15 @@ function SkillsController (server) {
     this.status = response.status;
   });
 
+  router.post('/', function * () {
+    var data = yield parse(this);
+
+    var response = yield SkillsService.addCapability(data);
+
+    this.body = response.body;
+    this.status = response.status;
+  });
+
   // Add routes to the app
   server.app.use(router.routes());
   server.app.use(router.allowedMethods());
