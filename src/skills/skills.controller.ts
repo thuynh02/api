@@ -48,6 +48,15 @@ function SkillsController (server) {
     this.status = response.status;
   });
 
+  router.del('/:capability_id', function * () {
+    var data = this.params;
+
+    var response = yield SkillsService.deleteCapability(data);
+
+    this.body = response.body;
+    this.status = response.status;
+  });
+
   // Add routes to the app
   server.app.use(router.routes());
   server.app.use(router.allowedMethods());

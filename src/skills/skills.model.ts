@@ -96,26 +96,21 @@ model.updateCapability = function * (data) {
   var model = this;
 
   try {
-    yield this.Capability.update({
+    yield this.Capability.upsert({
+      capability_id: data.capability_id,
       party_id : data.party_id,
       cap_name : data.cap_name,
-      category : data.category,
-      skill : data.skill,
-      type : data.type
-    },
-    {
-      where : {
-        capability_id : data.capability_id
-      }
-    }).then(function(result) {
-      if(result) {
-        status = 204;
-        body = "Capability updated!";
+      category: data.category,
+      skill: data.skill,
+      type: data.type
+    }).then(function(created) {
+      if(created) {
+        status = 201;
+        body = "Capability created!";
       }
       else {
-        status = 409;
-        body = "Unable to update capability";
-        model.logger.warn(body);
+        status = 204;
+        body = "Capability updated!";
       }
     }, function(error) {
       status = 500;
@@ -125,6 +120,34 @@ model.updateCapability = function * (data) {
   } catch(error) {
       status = 409;
       body = error;
+      this.logger.error(body);
+  } finally {
+      return { status : status, body : body };
+  }
+};
+
+model.deleteCapability = function * (data) {
+  var status, body;
+  var model = this;
+
+  try {
+    yield this.Capability.destroy({
+      where: {
+        capability_id : data.capability_id
+      }
+    }).then(function(deletedRows){
+      if(deletedRows) {
+        status = 204;
+        body = "Capability: " + data.capability_id + " was deleted";
+      } else {
+        status = 409;
+        body = "Capability: " + data.capability_id + " was not deleted";
+        model.logger.warn(body);
+      }
+    });
+  } catch(err) {
+      status = 409;
+      body = err;
       this.logger.error(body);
   } finally {
       return { status : status, body : body };

@@ -67,9 +67,19 @@ function * updateCapability(data) {
     return response;
 }
 
+function * deleteCapability(data) {
+    if(data.capability_id === undefined) {
+        return { status : 400, body : "Capability Id is required" };
+    }
+    var response = yield new SModel().deleteCapability(data);
+
+    return response;
+}
+
 module.exports = {
     getAllCapabilities,
     getCapability,
     addCapability,
-    updateCapability
+    updateCapability,
+    deleteCapability
 };
