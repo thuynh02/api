@@ -1,5 +1,5 @@
 var db   = require('../server/sweet-skills-database.js');
-var user = require('../models/person.js');
+var user = require('./../models/person.js');
 
 
 function UsersModel(message){
@@ -62,5 +62,5 @@ model.getAllUsers = function * (data){
     }
 };
 
-model.exports = UsersModel;
+module.exports = UsersModel;
 

@@ -15,13 +15,13 @@ function * addUser(data) {
     if (data.user_id === undefined){
         return { status : 400, body : "user_id is required" }
     }
-};
+}
 
 function * getAllUsers() {
-    var response = yield new UModel("Get all Users").getAllCapability;
-};
+    var response = yield new UModel("Get all Users").getAllUsers;
+}
 
 module.exports = {
     addUser,
     getAllUsers
-}
+};

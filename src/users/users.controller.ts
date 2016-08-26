@@ -1,4 +1,4 @@
-
+"use strict"
 var UsersService = require("./users.service.js");
 var Router = require('koa-router');
 var parse = require('co-body');
@@ -32,10 +32,10 @@ function UsersController (server){
     });
     */ 
     router.get('/all', function * () {
-        var response = yield new UModel('').getAllUsers();
-
-        this.body   = response.body;
-        this.status = response.status;
+        //var response = yield UsersService.getAllUsers();
+        this.body = "test";
+        //this.body   = response.body;
+        this.status = 200;
     });
     
 
