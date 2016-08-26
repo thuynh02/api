@@ -1,5 +1,6 @@
 'use strict';
-var SModel = require("./skills.model.js");
+
+var SModel = require('./skills.model.js');
 
 // Perform data validation and return response from the model
 function * getAllCapabilities() {
@@ -10,7 +11,7 @@ function * getAllCapabilities() {
 
 function * getCapability(data) {
     if(data.capability_id === undefined) {
-        return { status : 400, body : "Capability Id is required" };
+        return { status : 400, body : 'Capability Id is required' };
     }
     var response = yield new SModel().getCapability(data);
 
@@ -19,23 +20,23 @@ function * getCapability(data) {
 
 function * addCapability(data) {
     if(data.party_id === undefined) {
-        return { status : 400, body : "party_id is required" };
+        return { status : 400, body : 'party_id is required' };
     }
 
     if(data.cap_name === undefined) {
-        return { status : 400, body : "cap_name is required" };
+        return { status : 400, body : 'cap_name is required' };
     }
 
     if(data.category === undefined) {
-        return { status : 400, body : "category is required" };
+        return { status : 400, body : 'category is required' };
     }
 
     if(data.skill === undefined) {
-        return { status : 400, body : "skill is required" };
+        return { status : 400, body : 'skill is required' };
     }
 
     if(data.type === undefined) {
-        return { status : 400, body : "type is required" };
+        return { status : 400, body : 'type is required' };
     }
 
     var response = yield new SModel().addCapability(data);
@@ -59,7 +60,7 @@ function * updateCapability(data) {
     }
 
     if(!validRequest) {
-        return { status : 400, body: "Missing parameter: " + missingParam }
+        return { status : 400, body: 'Missing parameter: ' + missingParam }
     }
 
     var response = yield new SModel().updateCapability(data);
@@ -69,7 +70,7 @@ function * updateCapability(data) {
 
 function * deleteCapability(data) {
     if(data.capability_id === undefined) {
-        return { status : 400, body : "Capability Id is required" };
+        return { status : 400, body : 'Capability Id is required' };
     }
     var response = yield new SModel().deleteCapability(data);
 

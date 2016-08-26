@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-var SkillsService = require("./skills.service.js");
+var SkillsService = require('./skills.service.js');
 var Router = require('koa-router');
 var parse = require('co-body');
 

@@ -43,7 +43,7 @@ model.getCapability = function * (data) {
         body = results;
       } else {
         status = 404;
-        body = "Capability not found";
+        body = 'Capability not found';
         model.logger.warn(body);
       }
     });
@@ -78,7 +78,7 @@ model.addCapability = function * (data) {
         body = cap;
       } else {
         status = 400;
-        body = "Capability already exists!";
+        body = 'Capability already exists!';
         model.logger.warn(body);
       }
     });
@@ -106,11 +106,11 @@ model.updateCapability = function * (data) {
     }).then(function(created) {
       if(created) {
         status = 201;
-        body = "Capability created!";
+        body = 'Capability created!';
       }
       else {
         status = 204;
-        body = "Capability updated!";
+        body = 'Capability updated!';
       }
     }, function(error) {
       status = 500;
@@ -138,10 +138,10 @@ model.deleteCapability = function * (data) {
     }).then(function(deletedRows){
       if(deletedRows) {
         status = 204;
-        body = "Capability: " + data.capability_id + " was deleted";
+        body = 'Capability: ' + data.capability_id + ' was deleted';
       } else {
         status = 409;
-        body = "Capability: " + data.capability_id + " was not deleted";
+        body = 'Capability: ' + data.capability_id + ' was not deleted';
         model.logger.warn(body);
       }
     });
