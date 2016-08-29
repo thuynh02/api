@@ -27,31 +27,7 @@ module.exports = function(sequelize, DataTypes) {
     office: {
       type: DataTypes.STRING,
       allowNull: true
-    },
-    phone: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    email:{
-      type: DataTypes.STRING,
-      allowNull: true
-      },
-    profile_picture:{
-      type: DataTypes.STRING,
-      allowNull: true
-      },
-    skills_visited:{
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-      },
-    interests_visited:{
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-      },
-    info_visited:{
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-      }, 
+    }
   }, {
     timestamps: false,
     tableName: 'person'

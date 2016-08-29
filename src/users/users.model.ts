@@ -1,54 +1,22 @@
-var db   = require('../server/sweet-skills-database.js');
-var user = require('./../models/person.js');
+'use strict'
+
+var db     = require('../server/sweet-skills-database.js');
+var person = require('./../models/person.js');
 
 
-function UsersModel(message){
+function UsersModel(message: string){
     this.message = message;
-    this.User    = user(db.sequelize, db.Sequelize);
+    this.User    = person(db.sequelize, db.Sequelize);
     this.logger  = require('../server/logger.js');
 }
 
-var model = UsersModel.prototype;
+var userModel = UsersModel.prototype;
 
-//Query database and return an http status code
-model.addUser =  function * (data) {
-    var status, body;
-    var model = this;
-    try {
-        yield this.User.findOrCreate({
-            where : {
-                user_name : data.user_name
-            },
-            defaults : {
-                group_id : data.group_id,
-                f_name : data.f_name,
-                l_name : data.l_name,
-                cohort : data.cohort,
-                office : data.office
-            }
-        }).spread(function(user, created){
-            if(created) {
-                status = 201;
-                body   = user;
-            } else {
-                status = 400;
-                body   = 'Capability already exists';
-                model.logger.warn(body);
-            }
-        });
-    } catch (err) {
-        status = 409;
-        var error = err;
-    } finally{
-        return {status : status, body : body};
-    }
-};
-
-model.getAllUsers = function * (data){
+userModel.getAllUsers = function * (){
     var status, body;
     var model = this;
     try{
-        yield this.User.findAll().then(function(results){
+        yield model.User.findAll().then(function(results){
             status = 200;
             body   = results;
             model.logger.info("Users retrieved");
@@ -56,8 +24,34 @@ model.getAllUsers = function * (data){
     } catch(err) {
         status = 409;
         body   = err;
-        this.logger.error(body);
+        userModel.logger.error(body);
     } finally{
+        return { status : status, body : body };
+    }
+};
+
+userModel.getUserById = function * (user_id :number) {
+    var status, body;
+    var model = this;
+    try{
+        yield model.User.findById(user_id).then(function(results){
+            //console.log(results);
+            if (results!=null){
+                status = 200;
+                body   = results;
+                model.logger.info('User ', user_id, ' retrieved');
+            }
+            else{
+                status = 404;
+                body   = 'User does not exist!';
+            }
+           
+        });
+    } catch(err) {
+        status = 409;
+        body   = err;
+        userModel.logger.error(body);
+    } finally {
         return { status : status, body : body };
     }
 };

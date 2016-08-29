@@ -11,33 +11,44 @@ function UsersController (server){
         prefix: '/users'
     });
 
-    /*
-    //Set up the routes to call the services
-    router.put('/users/login', function * () {
-        var data = yield parse(this);
+    //Set up the routes
 
-        var response = yield UserService.addUser(data);
-
-        this.body = response.body;
+    //all the users
+    router.get('/', function * () {
+        var response = yield UsersService.getAllUsers();
+        
+        this.body   = response.body;
         this.status = response.status;
     });
-    
-    
-    router.get('/users/:user_id', function * () {
 
+    //user by Id
+    router.get('/:user_id', function * (){
+        var user_id: number = this.params.user_id;
+        var response = yield UsersService.getUserById(user_id);
+
+        this.body   = response.body;
+        this.status = response.status;
     });
 
-    
-    router.del('/users/:user_id', function * () {
+    /*
+    // findOrCreate a user based on unique identifier from auth0
+    router.put('/login/:identifier', function * (){
+        var data = this.params;
+        var response = yield UsersService.findOrCreate(data);
+
+        this.body   = response.body;
+        this.status = response.status;
     });
-    */ 
-    router.get('/all', function * () {
-        //var response = yield UsersService.getAllUsers();
-        this.body = "test";
-        //this.body   = response.body;
-        this.status = 200;
+    */
+
+    router.del('/:user_id', function * (){
+        var user_id :number = this.params.user_id;
+
+        var response = yield UsersService.deleteUser(user_id);
+
+        this.body   = response.body;
+        this.status = response.status;
     });
-    
 
     //Add routes to the app
     server.app.use(router.routes());
