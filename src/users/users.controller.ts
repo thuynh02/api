@@ -23,8 +23,8 @@ function UsersController (server){
 
     //user by Id
     router.get('/:user_id', function * (){
-        var user_id: number = this.params.user_id;
-        var response = yield UsersService.getUserById(user_id);
+        var userId: number = this.params.user_id;
+        var response = yield UsersService.getUserById(userId);
 
         this.body   = response.body;
         this.status = response.status;
@@ -33,7 +33,7 @@ function UsersController (server){
     /*
     // findOrCreate a user based on unique identifier from auth0
     router.put('/login/:identifier', function * (){
-        var data = this.params;
+        var auth0_id: string = this.params.identifier;
         var response = yield UsersService.findOrCreate(data);
 
         this.body   = response.body;
@@ -42,9 +42,9 @@ function UsersController (server){
     */
 
     router.del('/:user_id', function * (){
-        var user_id :number = this.params.user_id;
+        var userId :number = this.params.user_id;
 
-        var response = yield UsersService.deleteUser(user_id);
+        var response = yield UsersService.removeUser(userId);
 
         this.body   = response.body;
         this.status = response.status;

@@ -30,16 +30,16 @@ userModel.getAllUsers = function * (){
     }
 };
 
-userModel.getUserById = function * (user_id :number) {
+userModel.getUserById = function * (userId :number) {
     var status, body;
     var model = this;
     try{
-        yield model.User.findById(user_id).then(function(results){
+        yield model.User.findById(userId).then(function(results){
             //console.log(results);
             if (results!=null){
                 status = 200;
                 body   = results;
-                model.logger.info('User ', user_id, ' retrieved');
+                model.logger.info('User ', userId, ' retrieved');
             }
             else{
                 status = 404;
@@ -53,6 +53,34 @@ userModel.getUserById = function * (user_id :number) {
         userModel.logger.error(body);
     } finally {
         return { status : status, body : body };
+    }
+};
+
+userModel.removeUser = function * (userId :number) {
+    var status, body;
+    var model = this;
+    try{
+        yield model.User.findById(userId).on('success', function(user){
+            console.log('logging the user', user)
+            user.destroy().on('success', function(user) {
+                if (user && user.deletedAt){
+                    status = 204;
+                    body = "User: " + userId + " was deleted";
+                    model.logger.info(body);
+                }
+                else{
+                    status = 409;
+                    body = "User: " + userId + " was not deleted";
+                    model.logger.warn(body);
+                }
+            })
+        });      
+    } catch(err){
+        status = 409;
+        var error = err;
+        this.logger.error(body);
+    } finally {
+        return { status : status, body : body};
     }
 };
 
