@@ -20,7 +20,7 @@ userModel.getAllUsers = function * (){
             status = 200;
             body   = results;
             model.logger.info("Users retrieved");
-        });
+            });
     } catch(err) {
         status = 409;
         body   = err;
@@ -75,7 +75,7 @@ userModel.removeUser = function * (userId :number) {
                 }
             })
         });      
-    } catch(err){
+    } catch(err) {
         status = 409;
         var error = err;
         this.logger.error(body);

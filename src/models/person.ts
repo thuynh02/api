@@ -2,21 +2,31 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('person', {
-    person_id: {
+    personId: {
+      field: 'person_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    group_id: {
+    auth0Id: {
+      field: 'auth0_id',
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    groupId: {
+      field: 'group_id',
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    f_name: {
+    fName: {
+      field: 'f_name',
       type: DataTypes.STRING,
       allowNull: true
     },
-    l_name: {
+    lName: {
+      field: 'l_name',
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -27,7 +37,35 @@ module.exports = function(sequelize, DataTypes) {
     office: {
       type: DataTypes.STRING,
       allowNull: true
-    }
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    email:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    profilePicture:{
+      field: 'profile_picture',
+      type: DataTypes.STRING,
+      allowNull: true
+      },
+    skillsVisited:{
+      field: 'skills_visited',
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+      },
+    interestsVisited:{
+      field: 'interests_visited',
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+      },
+    infoVisited:{
+      field: 'info_visited',
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+      }
   }, {
     timestamps: false,
     tableName: 'person'
