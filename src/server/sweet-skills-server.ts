@@ -25,15 +25,18 @@ function SweetSkillsServer () {
 }
 
 SweetSkillsServer.prototype.start = function () {
-    // Make port configurable
-    let port = process.env.PORT || 80;
-    console.log("Starting Sweet Skills Server on port %s...", port);
-    let server = this;
+  // Make port configurable
+  let port = process.env.PORT || 80;
+  console.log("Starting Sweet Skills Server on port %s...", port);
+  let server = this;
 
-    fs.readdir('/etc/letsencrypt/live/', function(err, items) {
+  // Use letsencrypt certificate if it exists
+  var folderPath = '/etc/letsencrypt/live/';
+  if(folderExists(folderPath)) {
+    fs.readdir(folderPath, function(err, items) {
       var options = {
-        key: fs.readFileSync('/etc/letsencrypt/live/'+items[0]+'/privkey.pem'),
-        cert: fs.readFileSync('/etc/letsencrypt/live/'+items[0]+'/fullchain.pem')
+        key: fs.readFileSync(folderPath+items[0]+'/privkey.pem'),
+        cert: fs.readFileSync(folderPath+items[0]+'/fullchain.pem')
       }
       return new BBPromise(function (resolve) {
         server.httpHandle = http.createServer(server.app.callback()).listen(80);
@@ -43,24 +46,51 @@ SweetSkillsServer.prototype.start = function () {
         });
       });
     });
-  };
-
-SweetSkillsServer.prototype.stop = function () {
-    console.log("Stopping Sweet Skills Server...");
-    let server = this;
-    if (!server.httpsHandle && !server.httpHandle) {
-      console.log("Server has already been stopped.");
-      return;
+  }
+  // Use SelfSigned Certificate
+  else {
+    var options = {
+      key: fs.readFileSync('/privkey.pem'),
+      cert: fs.readFileSync('/fullchain.pem')
     }
     return new BBPromise(function (resolve) {
-      server.httpsHandle.close(function () {
-        server.httpHandle.close(function () {
-          console.log("Server stopped.");
-          resolve();
-        });
+      server.httpHandle = http.createServer(server.app.callback()).listen(80);
+      server.httpsHandle = https.createServer(options, server.app.callback()).listen(443, function() {
+        console.log("Server Started");
+        resolve();
       });
     });
-  };
+  }
+};
+
+SweetSkillsServer.prototype.stop = function () {
+  console.log("Stopping Sweet Skills Server...");
+  let server = this;
+  if (!server.httpsHandle && !server.httpHandle) {
+    console.log("Server has already been stopped.");
+    return;
+  }
+  return new BBPromise(function (resolve) {
+    server.httpsHandle.close(function () {
+      server.httpHandle.close(function () {
+        console.log("Server stopped.");
+        resolve();
+      });
+    });
+  });
+};
+
+function folderExists(filePath)
+{
+    try
+    {
+        return fs.statSync(filePath).isDirectory();
+    }
+    catch (err)
+    {
+        return false;
+    }
+}
 
 function initMiddleware(sweetSkillsServer) {
   // Register a middleware to print request paths and handle errors
