@@ -35,7 +35,7 @@ model.getCapability = function * (data) {
   try {
     yield this.Capability.findOne({
       where : {
-        capability_id: data.capability_id
+        capabilityId: data.capabilityId
       }
     }).then(function (results) {
       if(results) {
@@ -63,11 +63,11 @@ model.addCapability = function * (data) {
   try {
     yield this.Capability.findOrCreate({
       where : {
-        cap_name : data.cap_name
+        capName : data.capName
       },
       defaults : {
-        party_id : data.party_id,
-        cap_name : data.cap_name,
+        partyId : data.partyId,
+        capName : data.capName,
         category : data.category,
         skill : data.skill,
         type : data.type
@@ -97,9 +97,9 @@ model.updateCapability = function * (data) {
 
   try {
     yield this.Capability.upsert({
-      capability_id: data.capability_id,
-      party_id : data.party_id,
-      cap_name : data.cap_name,
+      capabilityId: data.capabilityId,
+      partyId : data.partyId,
+      capName : data.capName,
       category: data.category,
       skill: data.skill,
       type: data.type
@@ -133,15 +133,15 @@ model.deleteCapability = function * (data) {
   try {
     yield this.Capability.destroy({
       where: {
-        capability_id : data.capability_id
+        capabilityId : data.capabilityId
       }
     }).then(function(deletedRows){
       if(deletedRows) {
         status = 204;
-        body = 'Capability: ' + data.capability_id + ' was deleted';
+        body = 'Capability: ' + data.capabilityId + ' was deleted';
       } else {
         status = 409;
-        body = 'Capability: ' + data.capability_id + ' was not deleted';
+        body = 'Capability: ' + data.capabilityId + ' was not deleted';
         model.logger.warn(body);
       }
     });

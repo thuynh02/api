@@ -20,7 +20,7 @@ function SkillsController (server) {
     this.status = response.status;
   });
 
-  router.get('/:capability_id', function * () {
+  router.get('/:capabilityId', function * () {
     var data = this.params;
 
     var response = yield SkillsService.getCapability(data);
@@ -38,9 +38,9 @@ function SkillsController (server) {
     this.status = response.status;
   });
 
-  router.put('/:capability_id', function * () {
+  router.put('/:capabilityId', function * () {
     var data = yield parse(this);
-    data.capability_id = this.params.capability_id;
+    data.capabilityId = this.params.capabilityId;
 
     var response = yield SkillsService.updateCapability(data);
 
@@ -48,7 +48,7 @@ function SkillsController (server) {
     this.status = response.status;
   });
 
-  router.del('/:capability_id', function * () {
+  router.del('/:capabilityId', function * () {
     var data = this.params;
 
     var response = yield SkillsService.deleteCapability(data);

@@ -22,12 +22,12 @@ function * getCapability(data) {
 }
 
 function * addCapability(data) {
-    if(data.party_id === undefined) {
-        return { status : 400, body : 'party_id is required' };
+    if(data.partyId === undefined) {
+        return { status : 400, body : 'partyId is required' };
     }
 
-    if(data.cap_name === undefined) {
-        return { status : 400, body : 'cap_name is required' };
+    if(data.capName === undefined) {
+        return { status : 400, body : 'capName is required' };
     }
 
     if(data.category === undefined) {
@@ -50,7 +50,7 @@ function * addCapability(data) {
 
 function * updateCapability(data) {
     var validRequest = true;
-    var requiredParams = ['capability_id', 'party_id', 'cap_name', 'category', 'skill', 'type'];
+    var requiredParams = ['capability_id', 'partyId', 'capName', 'category', 'skill', 'type'];
 
     var missingParam = '';
 
