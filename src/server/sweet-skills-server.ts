@@ -30,37 +30,17 @@ SweetSkillsServer.prototype.start = function () {
   console.log("Starting Sweet Skills Server on port %s...", port);
   let server = this;
 
-  // Use letsencrypt certificate if it exists
-  var folderPath = '/etc/letsencrypt/live/';
-  if(folderExists(folderPath)) {
-    fs.readdir(folderPath, function(err, items) {
-      var options = {
-        key: fs.readFileSync(folderPath+items[0]+'/privkey.pem'),
-        cert: fs.readFileSync(folderPath+items[0]+'/fullchain.pem')
-      }
-      return new BBPromise(function (resolve) {
-        server.httpHandle = http.createServer(server.app.callback()).listen(80);
-        server.httpsHandle = https.createServer(options, server.app.callback()).listen(443, function() {
-          console.log("Server Started");
-          resolve();
-        });
-      });
-    });
-  }
-  // Use SelfSigned Certificate
-  else {
+  return new BBPromise(function (resolve) {
     var options = {
-      key: fs.readFileSync('/privkey.pem'),
-      cert: fs.readFileSync('/fullchain.pem')
+      key: fs.readFileSync(process.env.PRIVKEY),
+      cert: fs.readFileSync(process.env.CERT)
     }
-    return new BBPromise(function (resolve) {
-      server.httpHandle = http.createServer(server.app.callback()).listen(80);
-      server.httpsHandle = https.createServer(options, server.app.callback()).listen(443, function() {
-        console.log("Server Started");
-        resolve();
-      });
+    server.httpHandle = http.createServer(server.app.callback()).listen(80);
+    server.httpsHandle = https.createServer(options, server.app.callback()).listen(443, function() {
+      console.log("Server Started");
+      resolve();
     });
-  }
+  });
 };
 
 SweetSkillsServer.prototype.stop = function () {
@@ -79,18 +59,6 @@ SweetSkillsServer.prototype.stop = function () {
     });
   });
 };
-
-function folderExists(filePath)
-{
-    try
-    {
-        return fs.statSync(filePath).isDirectory();
-    }
-    catch (err)
-    {
-        return false;
-    }
-}
 
 function initMiddleware(sweetSkillsServer) {
   // Register a middleware to print request paths and handle errors
