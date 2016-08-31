@@ -12,7 +12,7 @@ function * getAllCapabilities() {
 }
 
 function * getCapability(data) {
-    if(data.capability_id === undefined) {
+    if(data.capabilityId === undefined) {
         return { status : 400, body : 'Capability Id is required' };
     }
     var response = yield new SModel().getCapability(data);
@@ -50,7 +50,7 @@ function * addCapability(data) {
 
 function * updateCapability(data) {
     var validRequest = true;
-    var requiredParams = ['capability_id', 'partyId', 'capName', 'category', 'skill', 'type'];
+    var requiredParams = ['capabilityId', 'partyId', 'capName', 'category', 'skill', 'type'];
 
     var missingParam = '';
 
@@ -74,7 +74,7 @@ function * updateCapability(data) {
 }
 
 function * deleteCapability(data) {
-    if(data.capability_id === undefined) {
+    if(data.capabilityId === undefined) {
         return { status : 400, body : 'Capability Id is required' };
     }
     var response = yield new SModel().deleteCapability(data);
