@@ -1,11 +1,13 @@
 'use strict';
 
 var SModel = require('./skills.model.js');
+var logger = require('../server/logger.js');
 
 // Perform data validation and return response from the model
 function * getAllCapabilities() {
     var response = yield new SModel().getAllCapabilities();
 
+    logger.info(response);
     return response;
 }
 
@@ -15,6 +17,7 @@ function * getCapability(data) {
     }
     var response = yield new SModel().getCapability(data);
 
+    logger.info(response);
     return response;
 }
 
@@ -41,6 +44,7 @@ function * addCapability(data) {
 
     var response = yield new SModel().addCapability(data);
 
+    logger.info(response);
     return response;
 }
 
@@ -65,6 +69,7 @@ function * updateCapability(data) {
 
     var response = yield new SModel().updateCapability(data);
 
+    logger.info(response);
     return response;
 }
 
@@ -74,6 +79,7 @@ function * deleteCapability(data) {
     }
     var response = yield new SModel().deleteCapability(data);
 
+    logger.info(response);
     return response;
 }
 
