@@ -2,13 +2,15 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('project', {
-    project_id: {
+    projectId: {
+      field: 'project_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    group_id: {
+    groupId: {
+      field: 'group_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

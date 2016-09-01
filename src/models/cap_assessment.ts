@@ -2,7 +2,8 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('cap_assessment', {
-    person_id: {
+    personId: {
+      field: 'person_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 'nextval(cap_assessment_person_id_seq::regclass)',
@@ -12,7 +13,8 @@ module.exports = function(sequelize, DataTypes) {
         key: 'person_id'
       }
     },
-    capability_id: {
+    capabilityId: {
+      field: 'capability_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -20,11 +22,13 @@ module.exports = function(sequelize, DataTypes) {
         key: 'capability_id'
       }
     },
-    proficiency_lvl: {
+    proficiencyLvl: {
+      field:'proficiency_lvl',
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    interest_lvl: {
+    interestLvl: {
+      field: 'interest_lvl',
       type: DataTypes.INTEGER,
       allowNull: true
     }

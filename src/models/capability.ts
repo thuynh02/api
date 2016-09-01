@@ -2,13 +2,15 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('capability', {
-    capability_id: {
+    capabilityId: {
+      field: 'capability_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    party_id: {
+    partyId: {
+      field: 'party_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -16,7 +18,8 @@ module.exports = function(sequelize, DataTypes) {
         key: 'party_id'
       }
     },
-    cap_name: {
+    capName: {
+      field: 'cap_name',
       type: DataTypes.STRING,
       allowNull: true
     },

@@ -2,7 +2,8 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('group', {
-    group_id: {
+    groupId: {
+      field: 'group_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
