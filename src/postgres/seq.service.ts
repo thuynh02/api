@@ -1,5 +1,5 @@
 'use strict';
-var SModel = require("./seq.model.js");
+var SModel = require("./seq.model");
 
 // Perform data validation and return response from the model
 function * getAllCapability() {
@@ -8,7 +8,7 @@ function * getAllCapability() {
   return response;
 }
 
-function * addCapability(data) {
+function * addCapability(data:any) {
   // Validate parameters
   
   if(data.party_id === undefined) {
@@ -36,7 +36,7 @@ function * addCapability(data) {
   return response;
 }
 
-function * updateUser(data) {
+function * updateUser(data:any) {
   var validRequest = true;
   var requiredParams = ['user_id', 'first_name', 'last_name', 'email', 'username'];
 
@@ -60,7 +60,7 @@ function * updateUser(data) {
   return response;
 }
 
-function * deleteUser(data) {
+function * deleteUser(data:any) {
   // Validate parameters
   if(data.user_id === undefined) {
     return { status : 400, body : "User Id is required"};

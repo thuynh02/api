@@ -1,7 +1,0 @@
-{
-  "name": "sweet-skills-api",
-  "dependencies": {},
-  "globalDependencies": {
-    "node": "registry:dt/node#6.0.0+20160815222444"
-  }
-}

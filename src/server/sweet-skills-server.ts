@@ -3,7 +3,7 @@ var Koa = require('koa');
 var BBPromise = require('bluebird');
 var Router = require('koa-router');
 var cors = require('kcors');
-var logger = require('./logger.js');
+var logger = require('./logger');
 
 function SweetSkillsServer () {
   this.app = new Koa();
@@ -22,7 +22,7 @@ SweetSkillsServer.prototype.start = function () {
     let port = process.env.PORT || 80;
     console.log("Starting Sweet Skills Server on port %s...", port);
     let server = this;
-    return new BBPromise(function (resolve) {
+    return new BBPromise(function (resolve:any) {
       server.httpHandle = server.app.listen(port, function () {
         console.log("Server started.");
         resolve();
@@ -37,7 +37,7 @@ SweetSkillsServer.prototype.stop = function () {
       console.log("Server has already been stopped.");
       return;
     }
-    return new BBPromise(function (resolve) {
+    return new BBPromise(function (resolve:any) {
       server.httpHandle.close(function () {
         console.log("Server stopped.");
         resolve();
@@ -45,10 +45,10 @@ SweetSkillsServer.prototype.stop = function () {
     });
   };
 
-function initMiddleware(sweetSkillsServer) {
+function initMiddleware(sweetSkillsServer:any) {
   // Register a middleware to print request paths and handle errors
   
-  sweetSkillsServer.app.use(function*(next){
+  sweetSkillsServer.app.use(function*(next:any){
     console.log("Request path: %s", this.request.path);
     yield next;
     try {
@@ -63,7 +63,7 @@ function initMiddleware(sweetSkillsServer) {
   });
   
   // Register a middleware to listen for shutdown request
-  sweetSkillsServer.app.use(function* (next) {
+  sweetSkillsServer.app.use(function* (next:any) {
     if (this.request.path == "/server/shutdown") {
       sweetSkillsServer.stop();
     }

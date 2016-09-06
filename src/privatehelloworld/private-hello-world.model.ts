@@ -1,6 +1,6 @@
 'use strict';
 
-function PrivateHelloWorldModel(message) {
+function PrivateHelloWorldModel(message:string) {
     this.message = message;
     return;
 }

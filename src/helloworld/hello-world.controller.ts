@@ -1,9 +1,9 @@
 "use strict";
 
-var HWService = require("./hello-world.service.js");
+var HWService = require("./hello-world.service");
 var Router = require('koa-router');
 
-function HelloWorldController (server) {
+function HelloWorldController (server:any) {
   this.server = server;
   // Create a new router
   var router = new Router({
@@ -11,7 +11,7 @@ function HelloWorldController (server) {
   });
 
   // Define Hello World route
-  router.get('/', function * () {
+  router.get('/', function * ():any {
     var service = new HWService();
     this.body = service.getGreeting();
     this.status = 200;
