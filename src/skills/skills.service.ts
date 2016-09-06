@@ -1,7 +1,7 @@
 'use strict';
 
-var SModel = require('./skills.model.js');
-var logger = require('../server/logger.js');
+var SModel = require('./skills.model');
+var logger = require('../server/logger');
 
 // Perform data validation and return response from the model
 function * getAllCapabilities() {
@@ -11,7 +11,7 @@ function * getAllCapabilities() {
     return response;
 }
 
-function * getCapability(data) {
+function * getCapability(data:JSON) {
     if(data.capabilityId === undefined) {
         return { status : 400, body : 'Capability Id is required' };
     }
@@ -21,7 +21,7 @@ function * getCapability(data) {
     return response;
 }
 
-function * addCapability(data) {
+function * addCapability(data:JSON) {
     if(data.partyId === undefined) {
         return { status : 400, body : 'partyId is required' };
     }
@@ -48,7 +48,7 @@ function * addCapability(data) {
     return response;
 }
 
-function * updateCapability(data) {
+function * updateCapability(data:JSON) {
     var validRequest = true;
     var requiredParams = ['capabilityId', 'partyId', 'capName', 'category', 'skill', 'type'];
 
@@ -73,7 +73,7 @@ function * updateCapability(data) {
     return response;
 }
 
-function * deleteCapability(data) {
+function * deleteCapability(data:JSON) {
     if(data.capabilityId === undefined) {
         return { status : 400, body : 'Capability Id is required' };
     }

@@ -1,21 +1,21 @@
-var db = require('../server/sweet-skills-database.js');
-var capability = require('../models/capability.js');
+var db = require('../server/sweet-skills-database');
+var capability = require('../models/capability');
 
 function SkillsModel() {
   this.Capability = capability(db.sequelize, db.Sequelize);
   this.Capability.sync();
 
-  this.logger = require('../server/logger.js');
+  this.logger = require('../server/logger');
 }
 
 var model = SkillsModel.prototype;
 
-model.getAllCapabilities = function * () {
+model.getAllCapabilities = function * ():any {
   var status, body;
   var model = this;
 
   try {
-    yield this.Capability.findAll().then(function (results) {
+    yield this.Capability.findAll().then(function (results:any) {
       status = 200;
       body = results;
     });
@@ -28,7 +28,7 @@ model.getAllCapabilities = function * () {
   }
 };
 
-model.getCapability = function * (data) {
+model.getCapability = function * (data:JSON) {
   var status, body;
   var model = this;
 
@@ -37,7 +37,7 @@ model.getCapability = function * (data) {
       where : {
         capabilityId: data.capabilityId
       }
-    }).then(function (results) {
+    }).then(function (results:any) {
       if(results) {
         status = 200;
         body = results;
@@ -56,7 +56,7 @@ model.getCapability = function * (data) {
   }
 };
 
-model.addCapability = function * (data) {
+model.addCapability = function * (data:JSON) {
   var status, body;
   var model = this;
 
@@ -72,7 +72,7 @@ model.addCapability = function * (data) {
         skill : data.skill,
         type : data.type
       }
-    }).spread(function(cap, created) {
+    }).spread(function(cap:any, created:any) {
       if(created) {
         status = 201;
         body = cap;
@@ -91,7 +91,7 @@ model.addCapability = function * (data) {
   }
 };
 
-model.updateCapability = function * (data) {
+model.updateCapability = function * (data:JSON) {
   var status, body;
   var model = this;
 
@@ -103,7 +103,7 @@ model.updateCapability = function * (data) {
       category: data.category,
       skill: data.skill,
       type: data.type
-    }).then(function(created) {
+    }).then(function(created:any) {
       if(created) {
         status = 201;
         body = 'Capability created!';
@@ -112,7 +112,7 @@ model.updateCapability = function * (data) {
         status = 204;
         body = 'Capability updated!';
       }
-    }, function(error) {
+    }, function(error:any) {
       status = 500;
       body = error;
       model.logger.error(body);
@@ -126,7 +126,7 @@ model.updateCapability = function * (data) {
   }
 };
 
-model.deleteCapability = function * (data) {
+model.deleteCapability = function * (data:JSON) {
   var status, body;
   var model = this;
 
@@ -135,7 +135,7 @@ model.deleteCapability = function * (data) {
       where: {
         capabilityId : data.capabilityId
       }
-    }).then(function(deletedRows){
+    }).then(function(deletedRows:any){
       if(deletedRows) {
         status = 204;
         body = 'Capability: ' + data.capabilityId + ' was deleted';

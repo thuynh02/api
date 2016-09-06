@@ -1,5 +1,5 @@
-var SSServer = require("./src/server/sweet-skills-server");
-var HWController = require("./src/helloworld/hello-world.controller");
+var SSServer = require('./src/server/sweet-skills-server');
+var HWController = require('./src/helloworld/hello-world.controller');
 var PHWController = require('./src/privatehelloworld/private-hello-world.controller');
 var SController = require('./src/postgres/seq.controller');
 var SKController = require('./src/skills/skills.controller');

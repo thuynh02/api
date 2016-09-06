@@ -1,10 +1,10 @@
 'use strict';
 
-var SkillsService = require('./skills.service.js');
+var SkillsService = require('./skills.service');
 var Router = require('koa-router');
 var parse = require('co-body');
 
-function SkillsController (server) {
+function SkillsController (server:any) {
   this.server = server;
 
   // Create a new router
@@ -13,14 +13,14 @@ function SkillsController (server) {
   });
 
   // Set up routes to call the services
-  router.get('/', function * () {
+  router.get('/', function * ():any {
     var response = yield SkillsService.getAllCapabilities();
 
     this.body = response.body;
     this.status = response.status;
   });
 
-  router.get('/:capabilityId', function * () {
+  router.get('/:capabilityId', function * ():any {
     var data = this.params;
 
     var response = yield SkillsService.getCapability(data);
@@ -29,7 +29,7 @@ function SkillsController (server) {
     this.status = response.status;
   });
 
-  router.post('/', function * () {
+  router.post('/', function * ():any {
     var data = yield parse(this);
 
     var response = yield SkillsService.addCapability(data);
@@ -38,7 +38,7 @@ function SkillsController (server) {
     this.status = response.status;
   });
 
-  router.put('/:capabilityId', function * () {
+  router.put('/:capabilityId', function * ():any {
     var data = yield parse(this);
     data.capabilityId = this.params.capabilityId;
 
@@ -48,7 +48,7 @@ function SkillsController (server) {
     this.status = response.status;
   });
 
-  router.del('/:capabilityId', function * () {
+  router.del('/:capabilityId', function * ():any {
     var data = this.params;
 
     var response = yield SkillsService.deleteCapability(data);
