@@ -26,25 +26,35 @@ function UsersController (server){
         var userId: number = this.params.user_id;
         var response = yield UsersService.getUserById(userId);
 
-        this.body   = response.body;
-        this.status = response.status;
+        this.body    = response.body;
+        this.status  = response.status;
     });
 
-    /*
+    
     // findOrCreate a user based on unique identifier from auth0
-    router.put('/login/:identifier', function * (){
-        var auth0_id: string = this.params.identifier;
+    router.put('/login', function * (){
+        var data     = yield parse(this);
         var response = yield UsersService.findOrCreate(data);
 
-        this.body   = response.body;
-        this.status = response.status;
+        this.body    = response.body;
+        this.status  = response.status;
     });
-    */
+    
 
     router.del('/:user_id', function * (){
         var userId :number = this.params.user_id;
 
         var response = yield UsersService.removeUser(userId);
+
+        this.body   = response.body;
+        this.status = response.status;
+    });
+
+    router.put('/:user_id/pages_visited', function * (){
+        var data           = yield parse(this);
+        data.personId        = this.params.user_id;
+
+        var response = yield UsersService.setVisitedPages(data);
 
         this.body   = response.body;
         this.status = response.status;
@@ -56,5 +66,7 @@ function UsersController (server){
     
     return;
 }
+
+
 
 module.exports = UsersController;

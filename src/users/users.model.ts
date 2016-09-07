@@ -84,5 +84,82 @@ userModel.removeUser = function * (userId :number) {
     }
 };
 
+userModel.findOrCreate = function * (data){
+    var status, body;
+    var model = this;
+    try{
+        yield this.User.findOrCreate({
+            where : {
+                auth0Id : data.user_id
+            },
+            defaults : {
+                auth0Id : data.user_id,
+                fname   : data.given_name,
+                lname   : data.family_name,
+                email   : data.email,
+                picture : data.picture,
+                groupId : 1
+            }
+        }).spread(function(user, created) {
+            if(created){
+                status = 201;
+                body   = user;
+            }
+            else {
+                status = 200;
+                body   = user;
+            }
+        })
+    } catch(err) {
+        status = 409;
+        body   = err;
+        model.logger.error(body);
+    } finally{
+        return { status : status, body : body };
+    }
+};
+
+userModel.setVisitedPages = function * (data){
+    var status, body;
+    var model = this;
+    try{
+       model.find({ where: { personId: data.personId } })
+        .on('success', function (user) {
+            // Check if record exists in db
+            if (user) {
+                //check if the params are being passed values
+                if (!data.hasOwnProperty('infoVisited')){
+                    data.infoVisited = user.infoVisited;
+                }
+                if (!data.hasOwnProperty('interestsVisited')){
+                    data.interestsVisited = user.interestsVisited;
+                }
+                if (!data.hasOwnProperty('skillsVisited')){
+                    data.skillsVisited = user.skillsVisited;
+                }
+                user.updateAttributes({
+                    infoVisited      : data.infoVisited,
+                    interestsVisited : data.interestsVisited,
+                    skillsVisited    : data.skillsVisited
+                }).on('success', function (user) {
+                    status = 200;
+                    body = user;
+                })
+            }
+            else{
+                status = 404;
+                body = 'User does not exist';
+            }
+        })
+    } catch(err) {
+        status = 409;
+        body   = err;
+        model.logger.error(body);
+    } finally{
+        return status;
+    }
+};
+
+
 module.exports = UsersModel;
 

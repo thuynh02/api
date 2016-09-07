@@ -18,8 +18,41 @@ function * removeUser(userId :number){
     return response;
 };
 
+function * findOrCreate(data){
+    var validRequest   = true;
+    var requiredParams = ['user_id', 'given_name', 'family_name', 'email', 'picture'];
+    var missingParam   = '';
+
+    for(let i = 0; i < requiredParams.length; i++) {
+        if(!data.hasOwnProperty(requiredParams[i])) {
+            missingParam = requiredParams[i];
+            validRequest = false;
+            break;
+        }
+    }
+    if (!validRequest){
+        return { status : 400, body: 'Missing parameter: ' + missingParam }
+    }
+    var response = yield new UModel().findOrCreate(data);
+    return response;
+};
+
+function * setVisitedPages(data){
+    var params = ['info_visited', 'skills_visited', 'interests_visite'];
+    var missingParams = '';
+
+    for(let i = 0; i < params.length; i++) {
+        if(!data.hasOwnProperty(params[i])) {
+            missingParams = params[i];
+        }
+    }
+    var response = yield new UModel('Change a users visited pages').setVisitedPages(data);
+};
+
 module.exports = {
     getAllUsers,
     getUserById,
-    removeUser
+    removeUser,
+    findOrCreate,
+    setVisitedPages
 };
