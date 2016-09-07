@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function(sequelize:any, DataTypes:any) {
   return sequelize.define('capability', {
     capabilityId: {
       field: 'capability_id',

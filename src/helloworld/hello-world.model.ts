@@ -1,6 +1,6 @@
 'use strict';
 
-function HelloWorldModel(message) {
+function HelloWorldModel(message:string) {
     this.message = message;
     return;
 }
