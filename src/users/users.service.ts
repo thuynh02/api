@@ -37,22 +37,11 @@ function * findOrCreate(data){
     return response;
 };
 
-function * setVisitedPages(data){
-    var params = ['info_visited', 'skills_visited', 'interests_visite'];
-    var missingParams = '';
 
-    for(let i = 0; i < params.length; i++) {
-        if(!data.hasOwnProperty(params[i])) {
-            missingParams = params[i];
-        }
-    }
-    var response = yield new UModel('Change a users visited pages').setVisitedPages(data);
-};
 
 module.exports = {
     getAllUsers,
     getUserById,
     removeUser,
-    findOrCreate,
-    setVisitedPages
+    findOrCreate
 };

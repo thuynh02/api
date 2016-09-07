@@ -1,4 +1,3 @@
-"use strict"
 var UsersService = require("./users.service.js");
 var Router = require('koa-router');
 var parse = require('co-body');
@@ -40,7 +39,11 @@ function UsersController (server){
         this.status  = response.status;
     });
     
-
+    //Currently the delete functionality is not callable because 
+    //there are other tables with the user as a foreign key that 
+    //we don't want to cascade to. We need to either refactor the
+    //database, make deleting into more of a shut-off, or both
+    /*
     router.del('/:user_id', function * (){
         var userId :number = this.params.user_id;
 
@@ -49,16 +52,7 @@ function UsersController (server){
         this.body   = response.body;
         this.status = response.status;
     });
-
-    router.put('/:user_id/pages_visited', function * (){
-        var data           = yield parse(this);
-        data.personId        = this.params.user_id;
-
-        var response = yield UsersService.setVisitedPages(data);
-
-        this.body   = response.body;
-        this.status = response.status;
-    });
+    */
 
     //Add routes to the app
     server.app.use(router.routes());
