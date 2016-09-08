@@ -1,3 +1,4 @@
+'use strict'
 var UModel = require('./users.model.js');
 
 function * getAllUsers() {

@@ -1,3 +1,4 @@
+'use strict'
 var db     = require('../server/sweet-skills-database.js');
 var person = require('./../models/person.js');
 

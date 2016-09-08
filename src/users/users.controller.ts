@@ -1,3 +1,4 @@
+'use strict'
 var UsersService = require("./users.service.js");
 var Router = require('koa-router');
 var parse = require('co-body');
