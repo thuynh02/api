@@ -1,9 +1,10 @@
 'use strict'
-var UsersService = require('./users.service.js');
+
+var UsersService = require('./users.service');
 var Router = require('koa-router');
 var parse = require('co-body');
 
-function UsersController (server){
+function UsersController (server:any){
     this.server = server;
 
     //Create a new router

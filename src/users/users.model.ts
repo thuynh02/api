@@ -1,21 +1,22 @@
 'use strict'
-var db     = require('../server/sweet-skills-database.js');
-var person = require('./../models/person.js');
+var db     = require('../server/sweet-skills-database');
+var person = require('./../models/person');
 
 
 function UsersModel(message: string){
     this.message = message;
     this.User    = person(db.sequelize, db.Sequelize);
-    this.logger  = require('../server/logger.js');
+    this.logger  = require('../server/logger');
 }
 
 var userModel = UsersModel.prototype;
 
 userModel.getAllUsers = function * (){
-    var status, body;
+    var status = 409;
+    var body = '';
     var model = this;
     try{
-        yield model.User.findAll().then(function(results){
+        yield model.User.findAll().then(function(results:any){
             status = 200;
             body   = results;
             model.logger.info("Users retrieved");
@@ -30,11 +31,11 @@ userModel.getAllUsers = function * (){
 };
 
 userModel.getUserById = function * (userId :number) {
-    var status, body;
+    var status = 409;
+    var body = '';
     var model = this;
     try{
-        yield model.User.findById(userId).then(function(results){
-            //console.log(results);
+        yield model.User.findById(userId).then(function(results:any){
             if (results!=null){
                 status = 200;
                 body   = results;
@@ -56,7 +57,8 @@ userModel.getUserById = function * (userId :number) {
 };
 
 userModel.removeUser = function * (userId :number) {
-  var status, body;
+  var status = 409;
+  var body = '';
   var model = this;
 
   try {
@@ -85,8 +87,9 @@ userModel.removeUser = function * (userId :number) {
 
 //TODO: Stop spoofing the data in groupId. This data can't be null,
 //but it needs to come from somewhere...
-userModel.findOrCreate = function * (data){
-    var status, body;
+userModel.findOrCreate = function * (data:any){
+    var status = 409;
+    var body = '';
     var model = this;
     try{
         yield model.User.findOrCreate({
@@ -101,7 +104,7 @@ userModel.findOrCreate = function * (data){
                 profilePicture : data.picture,
                 groupId : 1
             }
-        }).spread(function(user, created) {
+        }).spread(function(user:any, created:any) {
             if(created){
                 status = 201;
                 body   = user;

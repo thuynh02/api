@@ -1,5 +1,5 @@
 'use strict'
-var UModel = require('./users.model.js');
+var UModel = require('./users.model');
 
 function * getAllUsers() {
     var response = yield new UModel('Get all Users').getAllUsers();
@@ -19,7 +19,7 @@ function * removeUser(userId :number){
     return response;
 };
 
-function * findOrCreate(data){
+function * findOrCreate(data:any){
     var validRequest   = true;
     var requiredParams = ['user_id', 'given_name', 'family_name', 'email', 'picture'];
     var missingParam   = '';

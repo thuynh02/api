@@ -5,10 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "./node_modules/.bin/jasmine-node spec",
-    "start": "node dist/app.js",
-    "webpack": "webpack --config webpack.config.js",
+    "start": "npm run build && node dist/app.js",
     "lint": "jshint **.js",
-    "build": "tsc --watch"
+    "build": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
