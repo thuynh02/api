@@ -1,7 +1,5 @@
 var bunyan = require('bunyan');
 var createCWStream = require('bunyan-cloudwatch');
-//var dotenv = require('dotenv');
-//dotenv.load();
 
 // Sets up stream to CloudWatch
 var cloudWatchStream = createCWStream({

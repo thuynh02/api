@@ -1,5 +1,3 @@
-'use strict';
-
 var SModel = require('./skills.model');
 var logger = require('../server/logger');
 
