@@ -8,9 +8,9 @@ function SkillsModel() {
   this.logger = require('../server/logger');
 }
 
-var model = SkillsModel.prototype;
+var skillsModel = SkillsModel.prototype;
 
-model.getAllCapabilities = function * ():any {
+skillsModel.getAllCapabilities = function * ():any {
   var status, body;
   var model = this;
 
@@ -28,7 +28,7 @@ model.getAllCapabilities = function * ():any {
   }
 };
 
-model.getCapability = function * (data:JSON) {
+skillsModel.getCapability = function * (data:JSON) {
   var status, body;
   var model = this;
 
@@ -56,7 +56,7 @@ model.getCapability = function * (data:JSON) {
   }
 };
 
-model.addCapability = function * (data:JSON) {
+skillsModel.addCapability = function * (data:JSON) {
   var status, body;
   var model = this;
 
@@ -91,7 +91,7 @@ model.addCapability = function * (data:JSON) {
   }
 };
 
-model.updateCapability = function * (data:JSON) {
+skillsModel.updateCapability = function * (data:JSON) {
   var status, body;
   var model = this;
 
@@ -126,7 +126,7 @@ model.updateCapability = function * (data:JSON) {
   }
 };
 
-model.deleteCapability = function * (data:JSON) {
+skillsModel.deleteCapability = function * (data:JSON) {
   var status, body;
   var model = this;
 
