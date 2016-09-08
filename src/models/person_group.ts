@@ -2,7 +2,8 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('person_group', {
-    group_id: {
+    groupId: {
+      field: 'group_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 'nextval(person_group_group_id_seq::regclass)',
@@ -12,7 +13,8 @@ module.exports = function(sequelize, DataTypes) {
         key: 'group_id'
       }
     },
-    person_id: {
+    personId: {
+      field: 'person_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

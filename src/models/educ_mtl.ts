@@ -2,13 +2,15 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('educ_mtl', {
-    educ_mtl_id: {
+    educMtlId: {
+      field: 'educ_mtl_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    party_id: {
+    partyId: {
+      field: 'party_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -16,7 +18,8 @@ module.exports = function(sequelize, DataTypes) {
         key: 'party_id'
       }
     },
-    submitted_by: {
+    submittedBy: {
+      field: 'submitted_by',
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -40,11 +43,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true
     },
-    user_lvl: {
+    userLvl: {
+      field: 'user_lvl',
       type: DataTypes.STRING,
       allowNull: true
     },
-    is_recommended: {
+    isRecommended: {
+      field: 'is_recommended',
       type: DataTypes.BOOLEAN,
       allowNull: true
     }

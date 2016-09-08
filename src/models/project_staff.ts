@@ -2,7 +2,8 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('project_staff', {
-    project_id: {
+    projectId: {
+      field: 'project_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 'nextval(project_staff_project_id_seq::regclass)',
@@ -12,7 +13,8 @@ module.exports = function(sequelize, DataTypes) {
         key: 'project_id'
       }
     },
-    person_id: {
+    personId: {
+      field: 'person_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

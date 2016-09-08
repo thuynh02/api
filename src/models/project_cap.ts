@@ -2,13 +2,15 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('project_cap', {
-    project_cap_id: {
+    projectCapId: {
+      field: 'project_cap_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    project_id: {
+    projectId: {
+      field: 'project_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -16,7 +18,8 @@ module.exports = function(sequelize, DataTypes) {
         key: 'project_id'
       }
     },
-    capability_id: {
+    capabilityId: {
+      field: 'capability_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -24,7 +27,8 @@ module.exports = function(sequelize, DataTypes) {
         key: 'capability_id'
       }
     },
-    party_id: {
+    partyId: {
+      field: 'party_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -32,7 +36,8 @@ module.exports = function(sequelize, DataTypes) {
         key: 'party_id'
       }
     },
-    proficiency_lvl: {
+    proficiencyLvl: {
+      field: 'proficiency_lvl',
       type: DataTypes.INTEGER,
       allowNull: true
     }
