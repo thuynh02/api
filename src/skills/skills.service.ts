@@ -25,7 +25,7 @@ function * addCapability(data:JSON) {
     }
 
     if(data.capName === undefined) {
-        return { status : 400, body : 'capName is required' };
+        return { status : 400, body : 'capabilityName is required' };
     }
 
     if(data.category === undefined) {
@@ -48,7 +48,7 @@ function * addCapability(data:JSON) {
 
 function * updateCapability(data:JSON) {
     var validRequest = true;
-    var requiredParams = ['capabilityId', 'partyId', 'capName', 'category', 'skill', 'type'];
+    var requiredParams = ['capabilityId', 'partyId', 'capabilityName', 'category', 'skill', 'type'];
 
     var missingParam = '';
 

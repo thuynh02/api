@@ -18,7 +18,7 @@ module.exports = function(sequelize:any, DataTypes:any) {
         key: 'party_id'
       }
     },
-    capName: {
+    capabilityName: {
       type: DataTypes.STRING,
       allowNull: true,
       field: 'cap_name',
