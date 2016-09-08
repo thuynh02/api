@@ -11,7 +11,7 @@ function SkillsModel() {
 var skillsModel = SkillsModel.prototype;
 
 skillsModel.getAllCapabilities = function * ():any {
-  var status, body;
+  var status:number, body:string;
   var model = this;
 
   try {
@@ -28,8 +28,8 @@ skillsModel.getAllCapabilities = function * ():any {
   }
 };
 
-skillsModel.getCapability = function * (data:JSON) {
-  var status, body;
+skillsModel.getCapability = function * (data:any) {
+  var status:number, body:string;
   var model = this;
 
   try {
@@ -56,18 +56,18 @@ skillsModel.getCapability = function * (data:JSON) {
   }
 };
 
-skillsModel.addCapability = function * (data:JSON) {
-  var status, body;
+skillsModel.addCapability = function * (data:any) {
+  var status:number, body:string;
   var model = this;
 
   try {
     yield this.Capability.findOrCreate({
       where : {
-        capName : data.capName
+        capabilityName : data.capabilityName
       },
       defaults : {
         partyId : data.partyId,
-        capName : data.capName,
+        capabilityName : data.capabilityName,
         category : data.category,
         skill : data.skill,
         type : data.type
@@ -91,15 +91,15 @@ skillsModel.addCapability = function * (data:JSON) {
   }
 };
 
-skillsModel.updateCapability = function * (data:JSON) {
-  var status, body;
+skillsModel.updateCapability = function * (data:any) {
+  var status:number, body:string;
   var model = this;
 
   try {
     yield this.Capability.upsert({
       capabilityId: data.capabilityId,
       partyId : data.partyId,
-      capName : data.capName,
+      capabilityName : data.capabilityName,
       category: data.category,
       skill: data.skill,
       type: data.type
@@ -126,8 +126,8 @@ skillsModel.updateCapability = function * (data:JSON) {
   }
 };
 
-skillsModel.deleteCapability = function * (data:JSON) {
-  var status, body;
+skillsModel.deleteCapability = function * (data:any) {
+  var status:number, body:string;
   var model = this;
 
   try {

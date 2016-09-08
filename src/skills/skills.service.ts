@@ -9,7 +9,7 @@ function * getAllCapabilities() {
     return response;
 }
 
-function * getCapability(data:JSON) {
+function * getCapability(data:any) {
     if(data.capabilityId === undefined) {
         return { status : 400, body : 'Capability Id is required' };
     }
@@ -19,12 +19,12 @@ function * getCapability(data:JSON) {
     return response;
 }
 
-function * addCapability(data:JSON) {
+function * addCapability(data:any) {
     if(data.partyId === undefined) {
         return { status : 400, body : 'partyId is required' };
     }
 
-    if(data.capName === undefined) {
+    if(data.capabilityName === undefined) {
         return { status : 400, body : 'capabilityName is required' };
     }
 
@@ -46,14 +46,14 @@ function * addCapability(data:JSON) {
     return response;
 }
 
-function * updateCapability(data:JSON) {
+function * updateCapability(data:any) {
     var validRequest = true;
     var requiredParams = ['capabilityId', 'partyId', 'capabilityName', 'category', 'skill', 'type'];
 
     var missingParam = '';
 
     // Validate required parameters
-    for(let i = 0; i < requiredParams.length; i++) {
+    for(var i = 0; i < requiredParams.length; i++) {
         if(!data.hasOwnProperty(requiredParams[i])) {
             missingParam = requiredParams[i];
             validRequest = false;
@@ -71,7 +71,7 @@ function * updateCapability(data:JSON) {
     return response;
 }
 
-function * deleteCapability(data:JSON) {
+function * deleteCapability(data:any) {
     if(data.capabilityId === undefined) {
         return { status : 400, body : 'Capability Id is required' };
     }
