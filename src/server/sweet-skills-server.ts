@@ -36,7 +36,7 @@ SweetSkillsServer.prototype.start = function () {
       key: fs.readFileSync(process.env.PRIVKEY),
       cert: fs.readFileSync(process.env.CERT)
     }
-    server.httpHandle = http.createServer(server.app.callback()).listen(80);
+    server.httpHandle = http.createServer(server.app.callback()).listen(port);
     server.httpsHandle = https.createServer(options, server.app.callback()).listen(443, function() {
       console.log("Server Started");
       resolve();
