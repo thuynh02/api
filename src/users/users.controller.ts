@@ -1,5 +1,3 @@
-'use strict'
-
 var UsersService = require('./users.service');
 var Router = require('koa-router');
 var parse = require('co-body');
