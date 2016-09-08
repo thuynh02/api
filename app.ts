@@ -20,8 +20,5 @@ const hello =  new HWController(server);
 */
 const hellop =  new PHWController(server);
 
-// Init the postgres module
-const seq = new SController(server);
-
 // Start the server
 server.start();
