@@ -17,7 +17,15 @@ const skills = new SKController(server);
 
 // Init the hello world modules
 const hello =  new HWController(server);
+
+/*
+*  Authorization Key is currently set in private-hello-world.controller.js
+*  Move to sweet-skills-server when ready to secure all transactions
+*/
 const hellop =  new PHWController(server);
+
+// Init the postgres module
+const seq = new SController(server);
 
 // Start the server
 server.start();
