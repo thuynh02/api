@@ -3,32 +3,32 @@
 module.exports = function(sequelize:any, DataTypes:any) {
   return sequelize.define('capability', {
     capabilityId: {
-      field: 'capability_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
+      field: 'capability_id'
     },
     partyId: {
-      field: 'party_id',
       type: DataTypes.INTEGER,
       allowNull: false,
+      field: 'party_id',
       references: {
         model: 'party',
         key: 'party_id'
       }
     },
-    capName: {
-      field: 'cap_name',
+    capabilityName: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
+      field: 'cap_name',
     },
     category: {
       type: DataTypes.STRING,
       allowNull: true
     },
     skill: {
-      type: 'ARRAY',
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true
     },
     type: {
