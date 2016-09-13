@@ -1,3 +1,5 @@
+[![Build Status][travis-badge]][travis-badge-url]
+
 # SweetSkills API
  - Koa for authorized interactions with database
  - Secret key and database configuration stored as environment variables on server
@@ -5,3 +7,6 @@
    * The JWT is attached to each request sent from browser to server
    * The JWT is associated with our secret key stored on the server
    * Secret key is used to authenticate requests as originating from a logged in user
+
+[travis-badge]: https://travis-ci.org/sweetskills/api.svg?branch=master
+[travis-badge-url]: https://travis-ci.org/sweetskills/api
