@@ -6,21 +6,16 @@ var parse  = require('co-body');
 abstract class ApiController {
   server:any;
   router:any;
-  myApiService:ApiService;
-
+  service:ApiService;
   routerPrefix:string;
-  constructor(server_:any){
+
+  constructor(server_:any, routerPrefix_:string, service_:ApiService){
+    this.service = service_;
+    this.routerPrefix = routerPrefix_;
     this.router = new Router({
       prefix: this.routerPrefix
     });
-
-    //set up the routes
-    this.router.get('/', function * () {
-      var response = yield this.myApiService.getAll();
-
-      this.body   = response.body;
-      this.status = response.status;
-    });
+    this.server = server_;
     /*
     //user by Id
     this.router.get('/:id', function * (){
@@ -40,9 +35,17 @@ abstract class ApiController {
       this.body    = response.body;
       this.status  = response.status;
     });
- */
-    this.server = server_;
+ */  
     
+  };
+
+  createDefaultRoutes(){
+    this.router.get('/', function * () {
+      var response = yield this.service.getAll();
+      this.body   = response.body;
+      this.status = response.status;
+    });
+    return;
   };
 
   addRoutesToApp(){
@@ -51,6 +54,6 @@ abstract class ApiController {
     return;
   };
 
-}
+};
 
 export {ApiController};

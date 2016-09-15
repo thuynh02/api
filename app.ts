@@ -13,7 +13,7 @@ const server =  new SSServer();
 const skills = new SKController(server);
 
 // Init the users module
-const users = new UsersController(server);
+const users = new UsersController(server, '/users');
 
 // Init the hello world modules
 const hello =  new HWController(server);

@@ -2,17 +2,15 @@ import {UsersService} from './users.service';
 import {ApiController} from './ApiController';
 
 var Router = require('koa-router');
-var parse = require('co-body');
+var parse  = require('co-body');
 
 class UsersController extends ApiController {
-    server:any;
-    router:any;
-    myUsersService:UsersService;
 
-    constructor(server_:any){
-        var myUsersService = new UsersService();
-        super(server_); 
+    constructor(server_:any, routerPrefix_:string){
+        var service_ = new UsersService();
+        super(server_, routerPrefix_, service_);
         this.addRoutesToApp();
+        this.createDefaultRoutes();
     };
     
     //Currently the delete functionality is not callable because 

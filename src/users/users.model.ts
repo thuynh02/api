@@ -1,32 +1,10 @@
 var db     = require('../server/sweet-skills-database');
 var person = require('./../models/person');
+import {ApiModel} from './ApiModel';
 
-class UsersModel{
-    User:any;
-    logger:any;
+class UsersModel extends ApiModel{
     constructor(){
-        this.User    = person(db.sequelize, db.Sequelize);
-        this.logger  = require('../server/logger');
-    };
-
-
-    * getAllUsers(){
-        var status = 409;
-        var body = '';
-        var model = this;
-        try{
-            yield model.User.findAll().then(function(results:any){
-                status = 200;
-                body   = results;
-                model.logger.info("Users retrieved");
-                });
-        } catch(err) {
-            status = 409;
-            body   = err;
-            model.logger.error(body);
-        } finally{
-            return { status : status, body : body };
-        }
+        super(db, person);
     };
     /*
     userModel.getUserById = function * (userId :number) {
@@ -124,6 +102,4 @@ class UsersModel{
     */
 };
 
-
 export {UsersModel};
-

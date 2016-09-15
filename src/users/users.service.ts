@@ -1,14 +1,13 @@
 import {UsersModel} from './users.model';
+import {ApiService} from './ApiService';
 
-class UsersService{
-    constructor(){    
-    };
-
-    * getAllUsers() {
-        var response = yield new UsersModel().getAllUsers();
-
+class UsersService extends ApiService{
+    
+    * getAll():any{
+        var response = yield new UsersModel().getAll();
         return response;
-    };
+    }
+
 /*
     * getUserById(userId :number) {
         var response = yield new UModel('Get one user').getUserById(userId);

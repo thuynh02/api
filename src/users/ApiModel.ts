@@ -1,18 +1,17 @@
-class ApiModel{
-  databaseObject:any;
+abstract class ApiModel{
+  databaseTable:any;
   logger:any;
 
-
-  constructor(db:any, databaseObjectSchema:any){
-    this.databaseObject = databaseObjectSchema(db.sequelize, db.Sequelize);
+  constructor(db:any, databaseTableSchema:any){
+    this.databaseTable = databaseTableSchema(db.sequelize, db.Sequelize);
     this.logger = require('../server/logger');
   };
 
-  * getAll(){
+  * getAll():any{
       var status = 409;
       var body = '';
       try{
-          yield this.databaseObject.findAll().then(function(results:any){
+          yield this.databaseTable.findAll().then(function(results:any){
               status = 200;
               body   = results;
               this.logger.info("Users retrieved");
