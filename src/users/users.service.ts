@@ -1,48 +1,47 @@
-'use strict'
-var UModel = require('./users.model');
+import {UsersModel} from './users.model';
 
-function * getAllUsers() {
-    var response = yield new UModel('Get all Users').getAllUsers();
+class UsersService{
+    constructor(){    
+    };
 
-    return response;
-};
+    * getAllUsers() {
+        var response = yield new UsersModel().getAllUsers();
 
-function * getUserById(userId :number) {
-    var response = yield new UModel('Get one user').getUserById(userId);
+        return response;
+    };
+/*
+    * getUserById(userId :number) {
+        var response = yield new UModel('Get one user').getUserById(userId);
 
-    return response;
-};
+        return response;
+    };
 
-function * removeUser(userId :number){
-    var response = yield new UModel('Delete a user').removeUser(userId);
+    * removeUser(userId :number){
+        var response = yield new UModel('Delete a user').removeUser(userId);
 
-    return response;
-};
+        return response;
+    };
 
-function * findOrCreate(data:any){
-    var validRequest   = true;
-    var requiredParams = ['user_id', 'given_name', 'family_name', 'email', 'picture'];
-    var missingParam   = '';
+    * findOrCreate(data:any){
+        var validRequest   = true;
+        var requiredParams = ['user_id', 'given_name', 'family_name', 'email', 'picture'];
+        var missingParam   = '';
 
-    for(let i = 0; i < requiredParams.length; i++) {
-        if(!data.hasOwnProperty(requiredParams[i])) {
-            missingParam = requiredParams[i];
-            validRequest = false;
-            break;
+        for(let i = 0; i < requiredParams.length; i++) {
+            if(!data.hasOwnProperty(requiredParams[i])) {
+                missingParam = requiredParams[i];
+                validRequest = false;
+                break;
+            }
         }
-    }
-    if (!validRequest){
-        return { status : 400, body: 'Missing parameter: ' + missingParam }
-    }
-    var response = yield new UModel().findOrCreate(data);
-    return response;
+        if (!validRequest){
+            return { status : 400, body: 'Missing parameter: ' + missingParam }
+        }
+        var response = yield new UModel().findOrCreate(data);
+        return response;
+    };
+    */
 };
 
+export {UsersService};
 
-
-module.exports = {
-    getAllUsers,
-    getUserById,
-    removeUser,
-    findOrCreate
-};

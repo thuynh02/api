@@ -1,43 +1,19 @@
-var UsersService = require('./users.service');
+import {UsersService} from './users.service';
+import {ApiController} from './ApiController';
+
 var Router = require('koa-router');
 var parse = require('co-body');
 
-function UsersController (server:any){
-    this.server = server;
+class UsersController extends ApiController {
+    server:any;
+    router:any;
+    myUsersService:UsersService;
 
-    //Create a new router
-    var router = new Router({
-        prefix: '/users'
-    });
-
-    //Set up the routes
-
-    //all the users
-    router.get('/', function * () {
-        var response = yield UsersService.getAllUsers();
-        
-        this.body   = response.body;
-        this.status = response.status;
-    });
-
-    //user by Id
-    router.get('/:user_id', function * (){
-        var userId: number = this.params.user_id;
-        var response = yield UsersService.getUserById(userId);
-
-        this.body    = response.body;
-        this.status  = response.status;
-    });
-
-    
-    // findOrCreate a user based on unique identifier from auth0
-    router.put('/login', function * (){
-        var data     = yield parse(this);
-        var response = yield UsersService.findOrCreate(data);
-
-        this.body    = response.body;
-        this.status  = response.status;
-    });
+    constructor(server_:any){
+        var myUsersService = new UsersService();
+        super(server_); 
+        this.addRoutesToApp();
+    };
     
     //Currently the delete functionality is not callable because 
     //there are other tables with the user as a foreign key that 
@@ -47,20 +23,12 @@ function UsersController (server:any){
     router.del('/:user_id', function * (){
         var userId :number = this.params.user_id;
 
-        var response = yield UsersService.removeUser(userId);
+        var response = yield myUsersService.removeUser(userId);
 
         this.body   = response.body;
         this.status = response.status;
     });
     */
+};
 
-    //Add routes to the app
-    server.app.use(router.routes());
-    server.app.use(router.allowedMethods());
-    
-    return;
-}
-
-
-
-module.exports = UsersController;
+export {UsersController}
