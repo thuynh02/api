@@ -1,4 +1,4 @@
-import {ApiService} from './ApiService';
+import {ApiService} from './api.service';
 
 var Router = require('koa-router');
 var parse  = require('co-body');

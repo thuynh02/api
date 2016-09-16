@@ -1,5 +1,5 @@
 import {UsersModel} from './users.model';
-import {ApiService} from './ApiService';
+import {ApiService} from '../abstract-api-classes/api.service';
 
 class UsersService extends ApiService{
     model:UsersModel;

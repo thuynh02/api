@@ -1,4 +1,4 @@
-import {ApiModel} from './ApiModel';
+import {ApiModel} from './api.model';
 
 abstract class ApiService{
   model:ApiModel;

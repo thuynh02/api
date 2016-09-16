@@ -1,5 +1,5 @@
 import {UsersService} from './users.service';
-import {ApiController} from './ApiController';
+import {ApiController} from '../abstract-api-classes/api.controller';
 
 var Router = require('koa-router');
 var parse  = require('co-body');

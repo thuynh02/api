@@ -1,6 +1,6 @@
 var db     = require('../server/sweet-skills-database');
 var person = require('./../models/person');
-import {ApiModel} from './ApiModel';
+import {ApiModel} from '../abstract-api-classes/api.model';
 
 class UsersModel extends ApiModel{
     constructor(){
