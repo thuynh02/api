@@ -5,29 +5,39 @@ var Router = require('koa-router');
 var parse  = require('co-body');
 
 class UsersController extends ApiController {
-
+    service:UsersService;
     constructor(server_:any, routerPrefix_:string){
-        var usersService_ = new UsersService();
-        super(server_, routerPrefix_, usersService_);
-        console.log('logging service\n',this.service);
+        super(server_, routerPrefix_, new UsersService());
+        this.createAllDefaultRoutes();
+        this.createLoginRoute();
+        //this.createUpdateByIdRoute();
         this.addRoutesToApp();
-        this.createDefaultRoutes();
     };
     
-    //Currently the delete functionality is not callable because 
-    //there are other tables with the user as a foreign key that 
-    //we don't want to cascade to. We need to either refactor the
-    //database, make deleting into more of a shut-off, or both
-    /*
-    router.del('/:user_id', function * (){
-        var userId :number = this.params.user_id;
+    createLoginRoute(){
+        var apiController = this;
+        this.router.put('/login', function * (){
+            var data     = yield parse(this);
+            var response = yield apiController.service.findOrCreate(data);
 
-        var response = yield myUsersService.removeUser(userId);
+            this.body    = response.body;
+            this.status  = response.status;
+        }); 
+   };
+   /*
+   //Currently Broken...
+    createUpdateByIdRoute(){
+        var userController = this;
+        this.router.put('/:id', function * (){
+            var data = yield parse(this);
+            data.id = this.params.id;
+            var response = yield userController.service.updateById(data);
 
-        this.body   = response.body;
-        this.status = response.status;
-    });
-    */
+            this.body    = response.body;
+            this.status  = response.status;
+        });
+  };
+  */
 };
 
 export {UsersController}

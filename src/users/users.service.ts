@@ -2,22 +2,9 @@ import {UsersModel} from './users.model';
 import {ApiService} from './ApiService';
 
 class UsersService extends ApiService{
+    model:UsersModel;
     constructor(){
-        var usersModel = new UsersModel;
-        super(usersModel);
-    };
-
-/*
-    * getUserById(userId :number) {
-        var response = yield new UModel('Get one user').getUserById(userId);
-
-        return response;
-    };
-
-    * removeUser(userId :number){
-        var response = yield new UModel('Delete a user').removeUser(userId);
-
-        return response;
+        super(new UsersModel());
     };
 
     * findOrCreate(data:any){
@@ -35,10 +22,34 @@ class UsersService extends ApiService{
         if (!validRequest){
             return { status : 400, body: 'Missing parameter: ' + missingParam }
         }
-        var response = yield new UModel().findOrCreate(data);
+        var response = yield this.model.findOrCreate(data);
+        return response;
+    };
+    /* Currently Broken
+    * updateById(data:any):any{
+        var validRequest = true;
+        var requiredParams = ['personId', 'auth0Id', 'groupId', 'fName', 'lName', 'cohort', 'office', 'phone', 'email', 'profilePicture'];
+
+        var missingParam = '';
+
+        // Validate required parameters
+        for(var i = 0; i < requiredParams.length; i++) {
+            if(!data.hasOwnProperty(requiredParams[i])) {
+                missingParam = requiredParams[i];
+                validRequest = false;
+                break;
+            }
+        }
+
+        if(!validRequest) {
+            return { status : 400, body: 'Missing parameter: ' + missingParam }
+        }
+
+        var response = yield this.model.updateById(data);
         return response;
     };
     */
+
 };
 
 export {UsersService};

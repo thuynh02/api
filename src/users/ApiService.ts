@@ -3,16 +3,20 @@ var db:any     = require('../server/sweet-skills-database');
 var person:any = require('./../models/person');
 
 abstract class ApiService{
-  apiModel:ApiModel;
+  model:ApiModel;
   constructor(apiModel_:ApiModel){
-    this.apiModel = apiModel_;
+    this.model = apiModel_;
   };
   
   * getAll():any{
-      console.log('Hello from users service get all\n');
-      var response = yield this.apiModel.getAll();
+      var response = yield this.model.getAll();
       return response;
-  }
+  };
+
+  * getById(id:number):any{
+    var response = yield this.model.getById(id);
+    return response;
+  };
 };
 
 

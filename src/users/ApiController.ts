@@ -17,40 +17,44 @@ abstract class ApiController {
     });
     this.server = server_;
     /*
-    //user by Id
-    this.router.get('/:id', function * (){
-      var id:number = this.params.id;
-      var response = yield myApiService.getById(id);
-
-      this.body    = response.body;
-      this.status  = response.status;
-    });
-
-    
     // findOrCreate a user based on unique identifier from auth0
-    this.router.put('/login', function * (){
-      var data     = yield parse(this);
-      var response = yield myApiService.findOrCreate(data);
-
-      this.body    = response.body;
-      this.status  = response.status;
-    });
- */  
     
+    */
   };
 
-  createDefaultRoutes(){
+  createAllDefaultRoutes(){
+    this.createGetAllRoute();
+    this.createGetByIdRoute();
+    //this.createUpdateByIdRoute();
+  };
+
+  //here are the default routes
+  private createGetAllRoute(){
+    var apiController = this;
     this.router.get('/', function * () {
-      console.log('hello from the controller');
-      console.log('here is the service ', this.service);
-      var response = yield this.service.getAll();
-      console.log('hello from the controller2');
+      var response = yield apiController.service.getAll();
       this.body   = response.body;
       this.status = response.status;
     });
-    return;
   };
 
+  private createGetByIdRoute(){
+    var apiController = this;
+    this.router.get('/:id', function * (){
+      var id:number = this.params.id;
+      var response = yield apiController.service.getById(id);
+
+      this.body    = response.body;
+      this.status  = response.status;
+    });
+  };
+
+  
+/*
+  private createPostRoute(){
+
+  };
+*/
   addRoutesToApp(){
     this.server.app.use(this.router.routes());
     this.server.app.use(this.router.allowedMethods());
