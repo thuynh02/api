@@ -1,6 +1,7 @@
 abstract class ApiModel{
   databaseTable:any;
   logger:any;
+  name:string;
 
   constructor(db:any, databaseTableSchema:any){
     this.databaseTable = databaseTableSchema(db.sequelize, db.Sequelize);
@@ -15,7 +16,7 @@ abstract class ApiModel{
           yield model.databaseTable.findAll().then(function(results:any){
               status = 200;
               body   = results;
-              model.logger.info("Users retrieved");
+              model.logger.info(model.name,"s retrieved");
               });
       } catch(err) {
           status = 409;
@@ -35,11 +36,11 @@ abstract class ApiModel{
                 if (results!=null){
                     status = 200;
                     body   = results;
-                    model.logger.info('User ', id, ' retrieved');
+                    model.logger.info(model.name,' ', id, ' retrieved');
                 }
                 else{
                     status = 404;
-                    body   = 'User does not exist!';
+                    body   = model.name+' does not exist!';
                 }
             
             });

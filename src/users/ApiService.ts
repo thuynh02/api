@@ -1,6 +1,4 @@
 import {ApiModel} from './ApiModel';
-var db:any     = require('../server/sweet-skills-database');
-var person:any = require('./../models/person');
 
 abstract class ApiService{
   model:ApiModel;

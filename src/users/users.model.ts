@@ -5,6 +5,7 @@ import {ApiModel} from './ApiModel';
 class UsersModel extends ApiModel{
     constructor(){
         super(db, person);
+        this.name = 'user';
     };
 
     * findOrCreate(data:any):any{
