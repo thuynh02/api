@@ -2,11 +2,10 @@ import {UsersModel} from './users.model';
 import {ApiService} from './ApiService';
 
 class UsersService extends ApiService{
-    
-    * getAll():any{
-        var response = yield new UsersModel().getAll();
-        return response;
-    }
+    constructor(){
+        var usersModel = new UsersModel;
+        super(usersModel);
+    };
 
 /*
     * getUserById(userId :number) {

@@ -7,8 +7,9 @@ var parse  = require('co-body');
 class UsersController extends ApiController {
 
     constructor(server_:any, routerPrefix_:string){
-        var service_ = new UsersService();
-        super(server_, routerPrefix_, service_);
+        var usersService_ = new UsersService();
+        super(server_, routerPrefix_, usersService_);
+        console.log('logging service\n',this.service);
         this.addRoutesToApp();
         this.createDefaultRoutes();
     };

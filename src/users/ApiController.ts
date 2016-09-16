@@ -9,8 +9,8 @@ abstract class ApiController {
   service:ApiService;
   routerPrefix:string;
 
-  constructor(server_:any, routerPrefix_:string, service_:ApiService){
-    this.service = service_;
+  constructor(server_:any, routerPrefix_:string, apiService_:ApiService){
+    this.service = apiService_;
     this.routerPrefix = routerPrefix_;
     this.router = new Router({
       prefix: this.routerPrefix
@@ -41,7 +41,10 @@ abstract class ApiController {
 
   createDefaultRoutes(){
     this.router.get('/', function * () {
+      console.log('hello from the controller');
+      console.log('here is the service ', this.service);
       var response = yield this.service.getAll();
+      console.log('hello from the controller2');
       this.body   = response.body;
       this.status = response.status;
     });
