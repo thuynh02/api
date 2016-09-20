@@ -1,48 +1,56 @@
-'use strict'
-var UModel = require('./users.model');
+import {UsersModel} from './users.model';
+import {ApiService} from '../abstract-api-classes/api.service';
 
-function * getAllUsers() {
-    var response = yield new UModel('Get all Users').getAllUsers();
+class UsersService extends ApiService{
+    model:UsersModel;
+    constructor(){
+        super(new UsersModel());
+    };
 
-    return response;
-};
+    * findOrCreate(data:any){
+        var validRequest   = true;
+        var requiredParams = ['user_id', 'given_name', 'family_name', 'email', 'picture'];
+        var missingParam   = '';
 
-function * getUserById(userId :number) {
-    var response = yield new UModel('Get one user').getUserById(userId);
-
-    return response;
-};
-
-function * removeUser(userId :number){
-    var response = yield new UModel('Delete a user').removeUser(userId);
-
-    return response;
-};
-
-function * findOrCreate(data:any){
-    var validRequest   = true;
-    var requiredParams = ['user_id', 'given_name', 'family_name', 'email', 'picture'];
-    var missingParam   = '';
-
-    for(let i = 0; i < requiredParams.length; i++) {
-        if(!data.hasOwnProperty(requiredParams[i])) {
-            missingParam = requiredParams[i];
-            validRequest = false;
-            break;
+        for(let i = 0; i < requiredParams.length; i++) {
+            if(!data.hasOwnProperty(requiredParams[i])) {
+                missingParam = requiredParams[i];
+                validRequest = false;
+                break;
+            }
         }
-    }
-    if (!validRequest){
-        return { status : 400, body: 'Missing parameter: ' + missingParam }
-    }
-    var response = yield new UModel().findOrCreate(data);
-    return response;
+        if (!validRequest){
+            return { status : 400, body: 'Missing parameter: ' + missingParam }
+        }
+        var response = yield this.model.findOrCreate(data);
+        return response;
+    };
+    /* Currently Broken
+    * updateById(data:any):any{
+        var validRequest = true;
+        var requiredParams = ['personId', 'auth0Id', 'groupId', 'fName', 'lName', 'cohort', 'office', 'phone', 'email', 'profilePicture'];
+
+        var missingParam = '';
+
+        // Validate required parameters
+        for(var i = 0; i < requiredParams.length; i++) {
+            if(!data.hasOwnProperty(requiredParams[i])) {
+                missingParam = requiredParams[i];
+                validRequest = false;
+                break;
+            }
+        }
+
+        if(!validRequest) {
+            return { status : 400, body: 'Missing parameter: ' + missingParam }
+        }
+
+        var response = yield this.model.updateById(data);
+        return response;
+    };
+    */
+
 };
 
+export {UsersService};
 
-
-module.exports = {
-    getAllUsers,
-    getUserById,
-    removeUser,
-    findOrCreate
-};

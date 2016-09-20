@@ -1,66 +1,43 @@
-var UsersService = require('./users.service');
+import {UsersService} from './users.service';
+import {ApiController} from '../abstract-api-classes/api.controller';
+
 var Router = require('koa-router');
-var parse = require('co-body');
+var parse  = require('co-body');
 
-function UsersController (server:any){
-    this.server = server;
-
-    //Create a new router
-    var router = new Router({
-        prefix: '/users'
-    });
-
-    //Set up the routes
-
-    //all the users
-    router.get('/', function * () {
-        var response = yield UsersService.getAllUsers();
-        
-        this.body   = response.body;
-        this.status = response.status;
-    });
-
-    //user by Id
-    router.get('/:user_id', function * (){
-        var userId: number = this.params.user_id;
-        var response = yield UsersService.getUserById(userId);
-
-        this.body    = response.body;
-        this.status  = response.status;
-    });
-
+class UsersController extends ApiController {
+    service:UsersService;
+    constructor(server_:any, routerPrefix_:string){
+        super(server_, routerPrefix_, new UsersService());
+        this.createAllDefaultRoutes();
+        this.createLoginRoute();
+        //this.createUpdateByIdRoute();
+        this.addRoutesToApp();
+    };
     
-    // findOrCreate a user based on unique identifier from auth0
-    router.put('/login', function * (){
-        var data     = yield parse(this);
-        var response = yield UsersService.findOrCreate(data);
+    createLoginRoute(){
+        var apiController = this;
+        this.router.put('/login', function * (){
+            var data     = yield parse(this);
+            var response = yield apiController.service.findOrCreate(data);
 
-        this.body    = response.body;
-        this.status  = response.status;
-    });
-    
-    //Currently the delete functionality is not callable because 
-    //there are other tables with the user as a foreign key that 
-    //we don't want to cascade to. We need to either refactor the
-    //database, make deleting into more of a shut-off, or both
-    /*
-    router.del('/:user_id', function * (){
-        var userId :number = this.params.user_id;
+            this.body    = response.body;
+            this.status  = response.status;
+        }); 
+   };
+   /*
+   //Currently Broken...
+    createUpdateByIdRoute(){
+        var userController = this;
+        this.router.put('/:id', function * (){
+            var data = yield parse(this);
+            data.id = this.params.id;
+            var response = yield userController.service.updateById(data);
 
-        var response = yield UsersService.removeUser(userId);
+            this.body    = response.body;
+            this.status  = response.status;
+        });
+  };
+  */
+};
 
-        this.body   = response.body;
-        this.status = response.status;
-    });
-    */
-
-    //Add routes to the app
-    server.app.use(router.routes());
-    server.app.use(router.allowedMethods());
-    
-    return;
-}
-
-
-
-module.exports = UsersController;
+export {UsersController}

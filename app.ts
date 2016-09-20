@@ -2,7 +2,7 @@ var SSServer = require('./src/server/sweet-skills-server');
 var HWController = require('./src/helloworld/hello-world.controller');
 var PHWController = require('./src/privatehelloworld/private-hello-world.controller');
 var SKController = require('./src/skills/skills.controller');
-var UController = require('./src/users/users.controller');
+import {UsersController} from './src/users/users.controller';
 
 'use strict';
 
@@ -13,7 +13,7 @@ const server =  new SSServer();
 const skills = new SKController(server);
 
 // Init the users module
-const users = new UController(server);
+const users = new UsersController(server, '/users');
 
 // Init the hello world modules
 const hello =  new HWController(server);
