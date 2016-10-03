@@ -11,7 +11,7 @@ module.exports = {
     filename: 'app.js'
   },
   resolve: {
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
   devtool: 'source-map',
   module: {

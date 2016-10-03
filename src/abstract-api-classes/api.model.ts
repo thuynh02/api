@@ -78,11 +78,11 @@ abstract class ApiModel{
         }).then(function(created:any) {
             if(created) {
                 status = 201;
-                body = name + ' created!';
+                body = model.name + ' created!';
             }
             else {
                 status = 204;
-                body = name + ' updated!';
+                body = model.name + ' updated!';
             }
             }, function(error:any) {
             status = 500;
