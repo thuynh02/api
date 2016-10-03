@@ -1,7 +1,13 @@
+declare var require: {
+    <T>(path: string): T;
+    (paths: string[], callback: (...modules: any[]) => void): void;
+    ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void;
+};
 var SSServer = require('./src/server/sweet-skills-server');
 var HWController = require('./src/helloworld/hello-world.controller');
 var PHWController = require('./src/privatehelloworld/private-hello-world.controller');
 var SKController = require('./src/skills/skills.controller');
+
 import {UsersController} from './src/users/users.controller';
 
 'use strict';

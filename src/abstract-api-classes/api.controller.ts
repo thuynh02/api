@@ -25,7 +25,7 @@ abstract class ApiController {
   createAllDefaultRoutes(){
     this.createGetAllRoute();
     this.createGetByIdRoute();
-    //this.createUpdateByIdRoute();
+    this.createUpdateByIdRoute();
   };
 
   //here are the default routes
@@ -49,12 +49,18 @@ abstract class ApiController {
     });
   };
 
-  
-/*
-  private createPostRoute(){
+  private createUpdateByIdRoute(){
+    var apiController = this;
+      apiController.router.put('/:id', function * (){
+        var data = yield parse(this);
+        data.id = this.params.id;
+        var response = yield apiController.service.updateById(data);
 
+        this.body    = response.body;
+        this.status  = response.status;
+      });
   };
-*/
+
   addRoutesToApp(){
     this.server.app.use(this.router.routes());
     this.server.app.use(this.router.allowedMethods());
