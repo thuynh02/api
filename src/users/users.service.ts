@@ -5,7 +5,7 @@ class UsersService extends ApiService{
     model:UsersModel;
     constructor(){
         super(new UsersModel());
-        this.requiredUpdateParams = ['auth0Id', 'groupId', 'fName', 'lName', 'cohort', 'office', 'phone', 'email', 'profilePicture'];
+        this.requiredUpdateParams = ['id', 'auth0Id', 'groupId', 'fName', 'lName', 'cohort', 'office', 'phone', 'email', 'profilePicture'];
     };
 
     * findOrCreate(data:any){
@@ -26,8 +26,6 @@ class UsersService extends ApiService{
         var response = yield this.model.findOrCreate(data);
         return response;
     };
-
-
 };
 
 export {UsersService};

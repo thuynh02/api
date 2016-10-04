@@ -42,6 +42,4 @@ abstract class ApiService{
 
 };
 
-
-
 export {ApiService};

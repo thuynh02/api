@@ -1,10 +1,12 @@
 abstract class ApiModel{
+  db:any;
   databaseTable:any;
   logger:any;
   name:string;
 
-  constructor(db:any, databaseTableSchema:any){
-    this.databaseTable = databaseTableSchema(db.sequelize, db.Sequelize);
+  constructor(databaseTableSchema:any){
+    this.db = require('../server/sweet-skills-database');
+    this.databaseTable = databaseTableSchema(this.db.sequelize, this.db.Sequelize);
     this.logger = require('../server/logger');
   };
 
@@ -40,7 +42,7 @@ abstract class ApiModel{
                 }
                 else{
                     status = 404;
-                    body   = model.name+' does not exist!';
+                    body   = model.name + ' ' + id + ' does not exist!';
                 }
             
             });

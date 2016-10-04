@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function(sequelizea:any, DataTypes:any) {
   return sequelize.define('group', {
     groupId: {
       field: 'group_id',
