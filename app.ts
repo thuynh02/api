@@ -2,6 +2,7 @@ var SSServer = require('./src/server/sweet-skills-server');
 var HWController = require('./src/helloworld/hello-world.controller');
 var PHWController = require('./src/privatehelloworld/private-hello-world.controller');
 var SKController = require('./src/skills/skills.controller');
+
 import {UsersController} from './src/users/users.controller';
 
 'use strict';

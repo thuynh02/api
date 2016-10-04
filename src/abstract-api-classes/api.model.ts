@@ -53,6 +53,36 @@ abstract class ApiModel{
         }
   };
 
+  * updateById(data:any){
+    var populatedObject = this.populateModelObject(data);
+    var status:number, body:string;
+        var model = this;
+        try {
+            yield model.databaseTable.upsert(populatedObject).then(function(created:any) {
+            if(created) {
+                status = 201;
+                body = model.name + ' created!';
+            }
+            else {
+                status = 204;
+                body = model.name + ' updated!';
+            }
+            }, function(error:any) {
+            status = 500;
+            body = error;
+            model.logger.error(body);
+            });
+        } catch(error) {
+            status = 409;
+            body = error;
+            model.logger.error(body);
+        } finally {
+            return { status : status, body : body };
+        }
+  };
+
+  abstract populateModelObject(data:any):any;
+
 };
 
 export {ApiModel};

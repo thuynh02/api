@@ -10,7 +10,6 @@ class UsersController extends ApiController {
         super(server_, routerPrefix_, new UsersService());
         this.createAllDefaultRoutes();
         this.createLoginRoute();
-        //this.createUpdateByIdRoute();
         this.addRoutesToApp();
     };
     
@@ -24,20 +23,7 @@ class UsersController extends ApiController {
             this.status  = response.status;
         }); 
    };
-   /*
-   //Currently Broken...
-    createUpdateByIdRoute(){
-        var userController = this;
-        this.router.put('/:id', function * (){
-            var data = yield parse(this);
-            data.id = this.params.id;
-            var response = yield userController.service.updateById(data);
-
-            this.body    = response.body;
-            this.status  = response.status;
-        });
-  };
-  */
+   
 };
 
 export {UsersController}
