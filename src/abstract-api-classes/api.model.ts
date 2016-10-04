@@ -57,25 +57,8 @@ abstract class ApiModel{
     var populatedObject = this.populateModelObject(data);
     var status:number, body:string;
         var model = this;
-        console.log('model');
         try {
-            console.log('populatedObject:\n', populatedObject);
-            yield model.databaseTable.upsert({
-            personId : data.id,
-            auth0Id : data.auth0Id,
-            partyId : data.partyId,
-            groupId : data.groupId,
-            fName   : data.fName,
-            lName   : data.lName,
-            cohort  : data.cohort,
-            office  : data.office,
-            phone  : data.phone,
-            email  : data.email,
-            profilePicture: data.profilePicture,
-            skillsVisited : false,
-            interestsVistited : false,
-            infoVisited :false
-        }).then(function(created:any) {
+            yield model.databaseTable.upsert(populatedObject).then(function(created:any) {
             if(created) {
                 status = 201;
                 body = model.name + ' created!';
