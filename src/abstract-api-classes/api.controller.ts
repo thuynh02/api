@@ -16,16 +16,13 @@ abstract class ApiController {
       prefix: this.routerPrefix
     });
     this.server = server_;
-    /*
-    // findOrCreate a user based on unique identifier from auth0
-    
-    */
   };
 
   createAllDefaultRoutes(){
     this.createGetAllRoute();
     this.createGetByIdRoute();
     this.createUpdateByIdRoute();
+    this.createFindOrCreateRoute();
   };
 
   //here are the default routes
@@ -51,14 +48,25 @@ abstract class ApiController {
 
   private createUpdateByIdRoute(){
     var apiController = this;
-      apiController.router.put('/:id', function * (){
-        var data = yield parse(this);
-        data.id = this.params.id;
-        var response = yield apiController.service.updateById(data);
+    apiController.router.put('/:id', function * (){
+      var data = yield parse(this);
+      data.id = this.params.id;
+      var response = yield apiController.service.updateById(data);
 
-        this.body    = response.body;
-        this.status  = response.status;
-      });
+      this.body    = response.body;
+      this.status  = response.status;
+    });
+  };
+
+createFindOrCreateRoute(){
+    var apiController = this;
+    apiController.router.post('/', function * (){
+      var data = yield parse(this);
+      var response = yield apiController.service.findOrCreate(data);
+
+      this.body    = response.body;
+      this.status  = response.status;
+    });
   };
 
   addRoutesToApp(){

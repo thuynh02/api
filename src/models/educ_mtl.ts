@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function(sequelize:any, DataTypes:any) {
   return sequelize.define('educ_mtl', {
     educMtlId: {
       field: 'educ_mtl_id',

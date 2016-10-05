@@ -9,20 +9,21 @@ class UsersController extends ApiController {
     constructor(server_:any, routerPrefix_:string){
         super(server_, routerPrefix_, new UsersService());
         this.createAllDefaultRoutes();
-        this.createLoginRoute();
+        //this.createLoginRoute();
         this.addRoutesToApp();
     };
-    
-    createLoginRoute(){
-        var apiController = this;
-        this.router.put('/login', function * (){
-            var data     = yield parse(this);
-            var response = yield apiController.service.findOrCreate(data);
 
-            this.body    = response.body;
-            this.status  = response.status;
-        }); 
-   };
+    //override the creation to point at users/login
+    createFindOrCreateRoute(){
+        var apiController = this;
+        apiController.router.post('/login', function * (){
+        var data = yield parse(this);
+        var response = yield apiController.service.findOrCreate(data);
+
+        this.body    = response.body;
+        this.status  = response.status;
+    });
+  };
    
 };
 

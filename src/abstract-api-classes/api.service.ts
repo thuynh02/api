@@ -2,7 +2,7 @@ import {ApiModel} from './api.model';
 
 abstract class ApiService{
   model:ApiModel;
-  requiredUpdateParams:string[];
+  requiredParams:string[];
 
   constructor(apiModel_:ApiModel){
     this.model = apiModel_;
@@ -19,11 +19,30 @@ abstract class ApiService{
   };
 
   * updateById(data:any):any{
-    var validRequest = true;
-    var requiredParams = this.requiredUpdateParams;
-    var missingParam = '';
+    
+    var parameterValidation:any = this.validateParameters(data, ['id'].concat(this.requiredParams));
+    if (!parameterValidation.validRequest){
+      return { status : 400, body: 'Missing parameter: ' + parameterValidation.missingParam };
+    };
 
-    // Validate required parameters
+    var response = yield this.model.updateById(data);
+    return response;
+  };
+
+  * findOrCreate(data:any){
+    var parameterValidation:any = this.validateParameters(data, this.requiredParams);
+    if (!parameterValidation.validRequest){
+      return { status : 400, body: 'Missing parameter: ' + parameterValidation.missingParam };
+    };
+
+    var response = yield this.model.findOrCreate(data);
+    return response;
+  };
+
+  validateParameters(data:{}, requiredParams:string[]):any{
+    var validRequest:boolean = true;
+    var missingParam:string = '';
+
     for(var i = 0; i < requiredParams.length; i++) {
         if(!data.hasOwnProperty(requiredParams[i])) {
             missingParam = requiredParams[i];
@@ -31,17 +50,9 @@ abstract class ApiService{
             break;
         }
     }
-
-    if(!validRequest) {
-        return { status : 400, body: 'Missing parameter: ' + missingParam }
-    }
-
-    var response = yield this.model.updateById(data);
-    return response;
+    return {validRequest : validRequest, missingParam : missingParam};
   };
 
 };
-
-
 
 export {ApiService};

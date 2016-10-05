@@ -1,10 +1,14 @@
 abstract class ApiModel{
+  db:any;
   databaseTable:any;
   logger:any;
   name:string;
+  dbKey:{};
+  defaultFields:{};
 
-  constructor(db:any, databaseTableSchema:any){
-    this.databaseTable = databaseTableSchema(db.sequelize, db.Sequelize);
+  constructor(databaseTableSchema:any){
+    this.db = require('../server/sweet-skills-database');
+    this.databaseTable = databaseTableSchema(this.db.sequelize, this.db.Sequelize);
     this.logger = require('../server/logger');
   };
 
@@ -40,7 +44,7 @@ abstract class ApiModel{
                 }
                 else{
                     status = 404;
-                    body   = model.name+' does not exist!';
+                    body   = model.name + ' ' + id + ' does not exist!';
                 }
             
             });
@@ -54,7 +58,7 @@ abstract class ApiModel{
   };
 
   * updateById(data:any){
-    var populatedObject = this.populateModelObject(data);
+    var populatedObject = this.populateFullObject(data);
     var status:number, body:string;
         var model = this;
         try {
@@ -81,8 +85,38 @@ abstract class ApiModel{
         }
   };
 
-  abstract populateModelObject(data:any):any;
+  * findOrCreate(data:any):any{
+        var status = 409;
+        var body = '';
+        var model = this;
+        try{
+            yield model.databaseTable.findOrCreate({
+                where    : this.populateDbKey(data),
+                defaults : this.populateDefaultFields(data)
+            }).spread(function(returnObject:any, created:any) {
+                if(created){
+                    status = 201;
+                    body   = returnObject;
+                }
+                else {
+                    status = 200;
+                    body   = returnObject;
+                }
+            })
+        } catch(err) {
+            status = 409;
+            body   = err;
+            model.logger.error(body);
+        } finally{
+            return { status : status, body : body };
+        }
+    };
 
+    //These function populate data specific to the api instance.
+    //e.g. for users they would add auth0Id, name, etc. This is returned wrapped in an enum
+    abstract populateDefaultFields(data:any):any;
+    abstract populateFullObject(data:any):any;
+    abstract populateDbKey(data:any):any;
 };
 
 export {ApiModel};
