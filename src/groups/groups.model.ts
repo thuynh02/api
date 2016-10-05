@@ -7,8 +7,20 @@ class GroupsModel extends ApiModel{
         this.name = 'Group';
     };
 
+    populateDbKey(data:any):any{
+        return{
+            name: data.name
+        }
+    };
+
+    populateDefaultFields(data:any):any{
+        return{
+            name: data.name
+        }
+    }
+
     //This populates the data that the updateById function needs to insert into the DB
-    populateModelObject(data:any):any{
+    populateFullObject(data:any):any{
         return {
             groupId : data.id,
             name : data.name

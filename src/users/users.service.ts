@@ -5,24 +5,16 @@ class UsersService extends ApiService{
     model:UsersModel;
     constructor(){
         super(new UsersModel());
-        this.requiredUpdateParams = ['id', 'auth0Id', 'groupId', 'fName', 'lName', 'cohort', 'office', 'phone', 'email', 'profilePicture'];
+        this.requiredParams = ['auth0Id', 'groupId', 'fName', 'lName', 'cohort', 'office', 'phone', 'email', 'profilePicture'];
     };
 
-    * findOrCreate(data:any){
-        var validRequest   = true;
+     * findOrCreate(data:any){
         var requiredParams = ['user_id', 'given_name', 'family_name', 'email', 'picture'];
-        var missingParam   = '';
+        var parameterValidation:any = this.validateParameters(data, requiredParams);
+        if (!parameterValidation.validRequest){
+        return { status : 400, body: 'Missing parameter: ' + parameterValidation.missingParam };
+        };
 
-        for(let i = 0; i < requiredParams.length; i++) {
-            if(!data.hasOwnProperty(requiredParams[i])) {
-                missingParam = requiredParams[i];
-                validRequest = false;
-                break;
-            }
-        }
-        if (!validRequest){
-            return { status : 400, body: 'Missing parameter: ' + missingParam }
-        }
         var response = yield this.model.findOrCreate(data);
         return response;
     };

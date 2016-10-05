@@ -3,6 +3,8 @@ abstract class ApiModel{
   databaseTable:any;
   logger:any;
   name:string;
+  dbKey:{};
+  defaultFields:{};
 
   constructor(databaseTableSchema:any){
     this.db = require('../server/sweet-skills-database');
@@ -56,7 +58,7 @@ abstract class ApiModel{
   };
 
   * updateById(data:any){
-    var populatedObject = this.populateModelObject(data);
+    var populatedObject = this.populateFullObject(data);
     var status:number, body:string;
         var model = this;
         try {
@@ -83,8 +85,38 @@ abstract class ApiModel{
         }
   };
 
-  abstract populateModelObject(data:any):any;
+  * findOrCreate(data:any):any{
+        var status = 409;
+        var body = '';
+        var model = this;
+        try{
+            yield model.databaseTable.findOrCreate({
+                where    : this.populateDbKey(data),
+                defaults : this.populateDefaultFields(data)
+            }).spread(function(returnObject:any, created:any) {
+                if(created){
+                    status = 201;
+                    body   = returnObject;
+                }
+                else {
+                    status = 200;
+                    body   = returnObject;
+                }
+            })
+        } catch(err) {
+            status = 409;
+            body   = err;
+            model.logger.error(body);
+        } finally{
+            return { status : status, body : body };
+        }
+    };
 
+    //These function populate data specific to the api instance.
+    //e.g. for users they would add auth0Id, name, etc. This is returned wrapped in an enum
+    abstract populateDefaultFields(data:any):any;
+    abstract populateFullObject(data:any):any;
+    abstract populateDbKey(data:any):any;
 };
 
 export {ApiModel};

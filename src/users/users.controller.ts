@@ -9,10 +9,10 @@ class UsersController extends ApiController {
     constructor(server_:any, routerPrefix_:string){
         super(server_, routerPrefix_, new UsersService());
         this.createAllDefaultRoutes();
-        this.createLoginRoute();
+        //this.createLoginRoute();
         this.addRoutesToApp();
     };
-    
+    /*
     createLoginRoute(){
         var apiController = this;
         this.router.put('/login', function * (){
@@ -23,7 +23,12 @@ class UsersController extends ApiController {
             this.status  = response.status;
         }); 
    };
-   
+
+    createFindOrCreateRoute(){
+       //this is here to overrde the abstract create route to avoid the creation of users
+       //without a login
+   };
+   */
 };
 
 export {UsersController}

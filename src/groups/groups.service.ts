@@ -5,8 +5,7 @@ class GroupsService extends ApiService{
     model:GroupsModel;
     constructor(){
         super(new GroupsModel());
-        this.requiredUpdateParams = [
-            'id',
+        this.requiredParams = [
             'name'
         ];
     };

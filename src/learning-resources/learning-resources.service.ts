@@ -5,8 +5,9 @@ class LearningResourcesService extends ApiService{
     model:LearningResourcesModel;
     constructor(){
         super(new LearningResourcesModel());
-        this.requiredUpdateParams = [
-            'id',
+        this.requiredParams = [
+            'partyId',
+            'submittedBy',
             'type',
             'title',
             'author',

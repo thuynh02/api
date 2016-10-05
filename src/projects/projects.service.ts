@@ -5,9 +5,9 @@ class ProjectsService extends ApiService{
     model:ProjectsModel;
     constructor(){
         super(new ProjectsModel());
-        this.requiredUpdateParams = [
-            'id',
+        this.requiredParams = [
             'oic',
+            'groupId',
             'name',
             'description',
             'office'

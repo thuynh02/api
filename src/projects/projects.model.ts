@@ -7,10 +7,25 @@ class ProjectsModel extends ApiModel{
         this.name = 'Project';
     };
 
+    populateDbKey(data:any):any{
+        return this.populateDefaultFields;
+    };
+
+    populateDefaultFields(data:any):any{
+        return {
+            groupId : data.groupId,
+            oic : data.oic,
+            name : data.name,
+            description : data.description,
+            office : data.office,
+        }
+    };
+
     //This populates the data that the updateById function needs to insert into the DB
-    populateModelObject(data:any):any{
+    populateFullObject(data:any):any{
         return {
             projectId : data.id,
+            groupId : data.groupId,
             oic : data.oic,
             name : data.name,
             description : data.description,
