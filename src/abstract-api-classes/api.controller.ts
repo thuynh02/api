@@ -58,7 +58,7 @@ abstract class ApiController {
     });
   };
 
-private createFindOrCreateRoute(){
+createFindOrCreateRoute(){
     var apiController = this;
     apiController.router.post('/', function * (){
       var data = yield parse(this);
